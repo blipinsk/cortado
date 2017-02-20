@@ -51,13 +51,6 @@ Comparison
   Espresso | `Espresso.onView(Matchers.allOf(withId(R.id.edit),isEnabled())).perform(ViewActions.replaceText("changed"));`
   Cortado | `Cortado.onView().withId(R.id.edit).and().isEnabled().perform().replaceText("changed");`
 
-5. Replace a text on an `enabled` view with `R.id.edit`
-
-  Framework | Code example
-  --- | ---
-  Espresso | `Espresso.onView(Matchers.allOf(withId(R.id.edit),isEnabled())).perform(ViewActions.replaceText("changed"));`
-  Cortado | `Cortado.onView().withId(R.id.edit).and().isEnabled().perform().replaceText("changed");`
-
 Including In Your Project
 -------------------------
 
