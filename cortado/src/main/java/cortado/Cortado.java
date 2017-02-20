@@ -689,7 +689,7 @@ public final class Cortado {
                 super(Cortado.this);
             }
 
-            public Unfinished.And.ViewInteraction or() {
+            public Unfinished.And.ViewInteraction and() {
                 return new Unfinished().new And().new ViewInteraction();
             }
         }
