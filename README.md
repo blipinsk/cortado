@@ -9,7 +9,7 @@ Fluent API wrapper for Android Espresso :coffee:
 
 Overview
 --------
-Cortado provides another layer of abstraction above Espresso, so it's a bit easier to use.
+Cortado provides a layer of abstraction above Espresso, so it's a bit easier to use.
 
 **Remember: It is Google Espresso underneath.** You can still mess up your tests the same way you would when using pure Espresso. Cortado just gives you a bit nicer way to communicate with Espresso.
 
@@ -44,7 +44,7 @@ Comparison
   Espresso | `Espresso.onView(withText("example")).check(ViewAssertions.matches(isDisplayed()));`
   Cortado | `Cortado.onView().withText("example").check().matches(isDisplayed());`
 
-5. Replace a text on an `enabled` view with `R.id.edit`
+5. Replace a text on `enabled` view with `R.id.edit`
 
   Framework | Code example
   --- | ---
