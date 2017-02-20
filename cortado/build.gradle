@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+def cfg = rootProject.ext.configuration
+def libs = rootProject.ext.libraries
+def bintrayCfg = rootProject.ext.bintrayConfig
+
+android {
+    compileSdkVersion cfg.compileVersion
+    buildToolsVersion cfg.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion cfg.minSdk
+        targetSdkVersion cfg.targetSdk
+        versionCode cfg.versionCode
+        versionName cfg.versionName
+    }
+}
+
+dependencies {
+    testCompile "junit:junit:4.12"
+    testCompile "com.google.truth:truth:0.31"
+    testCompile "org.robolectric:robolectric:3.0"
+    testCompile "org.mockito:mockito-core:2.6.1"
+
+    provided "com.android.support:support-annotations:${libs.support}"
+    provided "com.android.support.test.espresso:espresso-core:${libs.espresso}"
+}
+
+publish {
+    artifactId = bintrayCfg.artifact
+    userOrg = bintrayCfg.userOrg
+    groupId = bintrayCfg.groupId
+    uploadName = bintrayCfg.name
+    publishVersion = cfg.versionName
+    desc = bintrayCfg.description
+    website = bintrayCfg.website
+    licences = bintrayCfg.licences
+}

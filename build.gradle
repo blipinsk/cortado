@@ -1,0 +1,110 @@
+ext {
+    configuration = [
+            package          : "cortado",
+            compileVersion   : 25,
+            buildToolsVersion: "25.0.2",
+            minSdk           : 8,
+            targetSdk        : 25,
+            versionCode      : 0,
+            versionName      : "0.0.0"
+    ]
+
+    libraries = [
+            support : "25.1.1",
+            espresso: "2.2.2"
+    ]
+
+    bintrayConfig = [
+            userOrg    : "blipinsk",
+            userName   : "Bartosz Lipinski",
+            userEmail  : "bartoszlipinski90@gmail.com",
+            groupId    : "com.bartoszlipinski",
+            name       : "Cortado",
+            artifact   : "cortado",
+            description: "Fluent API wrapper for Android Espresso",
+            website    : "https://github.com/blipinsk/Cortado",
+            gitUrl     : "https://github.com/blipinsk/Cortado.git",
+            licenses   : ["Apache-2.0"],
+            licenseDesc: "The Apache Software License, Version 2.0"
+    ]
+
+    bintrayUser = BINTRAY_USERNAME
+    bintrayKey = BINTRAY_API_KEY
+    dryRun = 'false'
+    isUploading = project.getGradle().startParameter.taskNames.any { it.contains('bintrayUpload') }
+
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.novoda:bintray-release:0.3.4'
+        // clean build bintrayUpload
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+subprojects {
+    repositories {
+        jcenter()
+    }
+
+    group = bintrayConfig.groupId
+    version = configuration.versionName
+
+    if (isUploading && project.name in [bintrayConfig.artifact]) {
+        println project.name
+        apply plugin: 'maven'
+
+        gradle.taskGraph.whenReady { taskGraph ->
+            taskGraph.getAllTasks().find {
+                it.path == ":$project.name:generatePomFileForMavenPublication"
+            }.doLast {
+                file("build/publications/maven/pom-default.xml").delete()
+                pom {
+                    //noinspection GroovyAssignabilityCheck
+                    project {
+                        name project.name
+                        artifactId project.name
+                        packaging 'aar'
+                        description bintrayConfig.description
+                        url bintrayConfig.website
+                        version configuration.versionName
+
+                        scm {
+                            url bintrayConfig.gitUrl
+                            connection bintrayConfig.gitUrl
+                            developerConnection bintrayConfig.gitUrl
+                        }
+
+                        licenses {
+                            license {
+                                name bintrayConfig.licenseDesc
+                            }
+                        }
+
+                        developers {
+                            developer {
+                                id bintrayConfig.userOrg
+                                name bintrayConfig.userName
+                                email bintrayConfig.userEmail
+                            }
+                        }
+                    }
+                }.writeTo("build/publications/maven/pom-default.xml")
+            }
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
