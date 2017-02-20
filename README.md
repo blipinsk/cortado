@@ -56,7 +56,7 @@ Including In Your Project
 
 ```xml
 dependencies {
-    compile 'com.bartoszlipinski:cortado:1.0.0'
+    compile 'com.bartoszlipinski:cortado:1.0.1'
 }
 ```
 
