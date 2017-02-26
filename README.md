@@ -54,9 +54,9 @@ Comparison
 Including In Your Project
 -------------------------
 
-```xml
+```groovy
 dependencies {
-    compile 'com.bartoszlipinski:cortado:1.0.1'
+    androidTestCompile 'com.bartoszlipinski:cortado:1.0.1'
 }
 ```
 
