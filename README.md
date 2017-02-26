@@ -6,6 +6,7 @@ Fluent API wrapper for Android Espresso :coffee:
 **Check out my [blog](https://medium.com/@blipinsk) :squirrel: or say *hi* on [Twitter](https://twitter.com/blipinsk).**
 
 --------
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Cortado-green.svg?style=true)](https://android-arsenal.com/details/1/5355) [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23246-blue.svg)](http://androidweekly.net/issues/issue-246)
 
 Overview
 --------
