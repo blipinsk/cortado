@@ -52,6 +52,15 @@ Comparison
   Espresso | `Espresso.onView(Matchers.allOf(withId(R.id.edit),isEnabled())).perform(ViewActions.replaceText("changed"));`
   Cortado | `Cortado.onView().withId(R.id.edit).and().isEnabled().perform().replaceText("changed");`
 
+Compatibility
+-------------
+
+I wanted the api of Cortado to be compatible with Espresso as much as possible. That's why you can do stuff like that:
+
+```java
+Espresso.onView(Cortado.view().withId(R.id.example).and().withText("Example text")).perform(click());
+```
+
 Including In Your Project
 -------------------------
 
