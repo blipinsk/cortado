@@ -6,10 +6,11 @@ Fluent API wrapper for Android Espresso :coffee:
 **Check out my [blog](https://medium.com/@blipinsk) :squirrel: or say *hi* on [Twitter](https://twitter.com/blipinsk).**
 
 --------
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Cortado-green.svg?style=true)](https://android-arsenal.com/details/1/5355) [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23246-blue.svg)](http://androidweekly.net/issues/issue-246)
 
 Overview
 --------
-Cortado provides another layer of abstraction above Espresso, so it's a bit easier to use.
+Cortado provides a layer of abstraction above Espresso, so it's a bit easier to use.
 
 **Remember: It is Google Espresso underneath.** You can still mess up your tests the same way you would when using pure Espresso. Cortado just gives you a bit nicer way to communicate with Espresso.
 
@@ -20,8 +21,8 @@ Comparison
 
   Framework | Code example
   --- | ---
-  Espresso | `Matchers.allOf(withId(R.id.text), isClickable());`
-  Cortado | `Cortado.view().withId(R.id.text).and().isClickable();`
+  Espresso | `Matchers.allOf(withId(R.id.text), withText("Example"), isClickable());`
+  Cortado | `Cortado.view().withId(R.id.text).and().withText("Example").and().isClickable();`
 
 2. Get a `Matcher` for views that have text `example` or have parent `FrameLayout`
 
@@ -44,19 +45,28 @@ Comparison
   Espresso | `Espresso.onView(withText("example")).check(ViewAssertions.matches(isDisplayed()));`
   Cortado | `Cortado.onView().withText("example").check().matches(isDisplayed());`
 
-5. Replace a text on an `enabled` view with `R.id.edit`
+5. Replace a text on `enabled` view with `R.id.edit`
 
   Framework | Code example
   --- | ---
   Espresso | `Espresso.onView(Matchers.allOf(withId(R.id.edit),isEnabled())).perform(ViewActions.replaceText("changed"));`
   Cortado | `Cortado.onView().withId(R.id.edit).and().isEnabled().perform().replaceText("changed");`
 
+Compatibility
+-------------
+
+I wanted the api of Cortado to be compatible with Espresso as much as possible. That's why you can do stuff like that:
+
+```java
+Espresso.onView(Cortado.view().withId(R.id.example).and().withText("Example text")).perform(click());
+```
+
 Including In Your Project
 -------------------------
 
-```xml
+```groovy
 dependencies {
-    compile 'com.bartoszlipinski:cortado:1.0.1'
+    androidTestCompile 'com.bartoszlipinski:cortado:1.0.1'
 }
 ```
 
