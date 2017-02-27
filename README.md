@@ -21,8 +21,8 @@ Comparison
 
   Framework | Code example
   --- | ---
-  Espresso | `Matchers.allOf(withId(R.id.text), isClickable());`
-  Cortado | `Cortado.view().withId(R.id.text).and().isClickable();`
+  Espresso | `Matchers.allOf(withId(R.id.text), withText("Example"), isClickable());`
+  Cortado | `Cortado.view().withId(R.id.text).and().withText("Example").and().isClickable();`
 
 2. Get a `Matcher` for views that have text `example` or have parent `FrameLayout`
 
