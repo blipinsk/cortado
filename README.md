@@ -1,7 +1,7 @@
 ![Image](/img/1100x330.png)
 
 
-Fluent API wrapper for Android Espresso :coffee:
+Android Espresso made more fluent :coffee:
 
 **Check out my [blog](https://medium.com/@blipinsk) :squirrel: or say *hi* on [Twitter](https://twitter.com/blipinsk).**
 
