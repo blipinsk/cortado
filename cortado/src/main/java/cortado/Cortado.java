@@ -409,6 +409,11 @@ public final class Cortado {
                 Cortado.Or.Matcher returned() {
                     return new Cortado.Or().new Matcher();
                 }
+
+                @VisibleForTesting
+                Cortado getCortado() {
+                    return Cortado.this;
+                }
             }
 
             public final class ViewInteraction extends NotCompletable<Cortado.Or.ViewInteraction> {
@@ -420,6 +425,11 @@ public final class Cortado {
                 @Override
                 Cortado.Or.ViewInteraction returned() {
                     return new Cortado.Or().new ViewInteraction();
+                }
+
+                @VisibleForTesting
+                Cortado getCortado() {
+                    return Cortado.this;
                 }
             }
         }
@@ -439,6 +449,11 @@ public final class Cortado {
                 Cortado.And.Matcher returned() {
                     return new Cortado.And().new Matcher();
                 }
+
+                @VisibleForTesting
+                Cortado getCortado() {
+                    return Cortado.this;
+                }
             }
 
             public final class ViewInteraction extends NotCompletable<Cortado.And.ViewInteraction> {
@@ -450,6 +465,11 @@ public final class Cortado {
                 @Override
                 Cortado.And.ViewInteraction returned() {
                     return new Cortado.And().new ViewInteraction();
+                }
+
+                @VisibleForTesting
+                Cortado getCortado() {
+                    return Cortado.this;
                 }
             }
         }

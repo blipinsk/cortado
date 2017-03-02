@@ -95,4 +95,38 @@ public class Cortado_Tests {
         assertThat(interaction).isInstanceOf(Interactable.class);
         assertThat(interaction).isNotInstanceOf(Matching.class);
     }
+
+    // setting linkers
+    @Test
+    public void view_and_setsProperLinker(){
+        Cortado.OrAnd.Matcher beforeAnd = Cortado.view().withText("test");
+        assertThat(beforeAnd.getCortado().linker).isEqualTo(Linker.REGULAR);
+        Cortado.Unfinished.And.Matcher afterAnd = beforeAnd.and();
+        assertThat(afterAnd.getCortado().linker).isEqualTo(Linker.AND);
+    }
+
+    @Test
+    public void view_or_setsProperLinker(){
+        Cortado.OrAnd.Matcher beforeOr = Cortado.view().withText("test");
+        assertThat(beforeOr.getCortado().linker).isEqualTo(Linker.REGULAR);
+        Cortado.Unfinished.Or.Matcher afterOr = beforeOr.or();
+        assertThat(afterOr.getCortado().linker).isEqualTo(Linker.OR);
+    }
+
+    @Test
+    public void onView_and_setsProperLinker(){
+        Cortado.OrAnd.ViewInteraction beforeAnd = Cortado.onView().withText("test");
+        assertThat(beforeAnd.getCortado().linker).isEqualTo(Linker.REGULAR);
+        Cortado.Unfinished.And.ViewInteraction afterAnd = beforeAnd.and();
+        assertThat(afterAnd.getCortado().linker).isEqualTo(Linker.AND);
+    }
+
+    @Test
+    public void onView_or_setsProperLinker(){
+        Cortado.OrAnd.ViewInteraction beforeOr = Cortado.onView().withText("test");
+        assertThat(beforeOr.getCortado().linker).isEqualTo(Linker.REGULAR);
+        Cortado.Unfinished.Or.ViewInteraction afterOr = beforeOr.or();
+        assertThat(afterOr.getCortado().linker).isEqualTo(Linker.OR);
+    }
+
 }
