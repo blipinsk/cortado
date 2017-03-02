@@ -343,13 +343,13 @@ public abstract class NotCompletable<T> implements Matching<T> {
     }
 
     @Override
-    public T matching(org.hamcrest.Matcher<View> matcher) {
+    public final T matching(org.hamcrest.Matcher<View> matcher) {
         cortado.matching(matcher);
         return returned();
     }
 
     @Override
-    public T matching(Matcher matcher) {
+    public final T matching(Matcher matcher) {
         cortado.matching(matcher);
         return returned();
     }

@@ -30,107 +30,10 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cortado.Chunks.AssignableFrom;
-import static cortado.Chunks.ClassName;
-import static cortado.Chunks.HasContentDescription;
-import static cortado.Chunks.HasDescendant;
-import static cortado.Chunks.HasErrorText_Matcher;
-import static cortado.Chunks.HasErrorText_String;
-import static cortado.Chunks.HasFocus;
-import static cortado.Chunks.HasImeAction_Integer;
-import static cortado.Chunks.HasImeAction_Matcher;
-import static cortado.Chunks.HasLinks;
-import static cortado.Chunks.HasSibling;
-import static cortado.Chunks.IsChecked;
-import static cortado.Chunks.IsClickable;
-import static cortado.Chunks.IsCompletelyDisplayed;
-import static cortado.Chunks.IsDescendantOfA;
-import static cortado.Chunks.IsDisplayed;
-import static cortado.Chunks.IsDisplayingAtLeast;
-import static cortado.Chunks.IsEnabled;
-import static cortado.Chunks.IsFocusable;
-import static cortado.Chunks.IsJavascriptEnabled;
-import static cortado.Chunks.IsNotChecked;
-import static cortado.Chunks.IsRoot;
-import static cortado.Chunks.IsSelected;
-import static cortado.Chunks.SupportsInputMethods;
-import static cortado.Chunks.WithChild;
-import static cortado.Chunks.WithContentDescription_Matcher;
-import static cortado.Chunks.WithContentDescription_Resource;
-import static cortado.Chunks.WithContentDescription_String;
-import static cortado.Chunks.WithEffectiveVisibility;
-import static cortado.Chunks.WithHint_Matcher;
-import static cortado.Chunks.WithHint_Resource;
-import static cortado.Chunks.WithHint_String;
-import static cortado.Chunks.WithId_Matcher;
-import static cortado.Chunks.WithId_Resource;
-import static cortado.Chunks.WithInputType;
-import static cortado.Chunks.WithParent;
-import static cortado.Chunks.WithResourceName_Matcher;
-import static cortado.Chunks.WithResourceName_String;
-import static cortado.Chunks.WithSpinnerText_Matcher;
-import static cortado.Chunks.WithSpinnerText_Resource;
-import static cortado.Chunks.WithSpinnerText_String;
-import static cortado.Chunks.WithTagKey;
-import static cortado.Chunks.WithTagKey_Matcher;
-import static cortado.Chunks.WithTagValue;
-import static cortado.Chunks.WithText_Matcher;
-import static cortado.Chunks.WithText_Resource;
-import static cortado.Chunks.WithText_String;
-
 public final class Cortado {
 
-    @VisibleForTesting AssignableFrom assignableFrom = new AssignableFrom();
-    @VisibleForTesting ClassName className = new ClassName();
-    @VisibleForTesting IsDisplayed isDisplayed = new IsDisplayed();
-    @VisibleForTesting IsCompletelyDisplayed isCompletelyDisplayed = new IsCompletelyDisplayed();
-    @VisibleForTesting IsDisplayingAtLeast isDisplayingAtLeast = new IsDisplayingAtLeast();
-    @VisibleForTesting IsEnabled isEnabled = new IsEnabled();
-    @VisibleForTesting IsFocusable isFocusable = new IsFocusable();
-    @VisibleForTesting HasFocus hasFocus = new HasFocus();
-    @VisibleForTesting IsSelected isSelected = new IsSelected();
-    @VisibleForTesting HasSibling hasSibling = new HasSibling();
-    @VisibleForTesting WithContentDescription_Resource withContentDescriptionResource = new WithContentDescription_Resource();
-    @VisibleForTesting WithContentDescription_String withContentDescriptionString = new WithContentDescription_String();
-    @VisibleForTesting WithContentDescription_Matcher withContentDescriptionMatcher = new WithContentDescription_Matcher();
-    @VisibleForTesting WithId_Resource withIdResource = new WithId_Resource();
-    @VisibleForTesting WithId_Matcher withIdMatcher = new WithId_Matcher();
-    @VisibleForTesting WithResourceName_String withResourceNameString = new WithResourceName_String();
-    @VisibleForTesting WithResourceName_Matcher withResourceNameMatcher = new WithResourceName_Matcher();
-    @VisibleForTesting WithTagKey withTagKey = new WithTagKey();
-    @VisibleForTesting WithTagKey_Matcher withTagKeyMatcher = new WithTagKey_Matcher();
-    @VisibleForTesting WithTagValue withTagValue = new WithTagValue();
-    @VisibleForTesting WithText_String withTextString = new WithText_String();
-    @VisibleForTesting WithText_Matcher withTextMatcher = new WithText_Matcher();
-    @VisibleForTesting WithText_Resource withTextResource = new WithText_Resource();
-    @VisibleForTesting WithHint_String withHintString = new WithHint_String();
-    @VisibleForTesting WithHint_Matcher withHintMatcher = new WithHint_Matcher();
-    @VisibleForTesting WithHint_Resource withHintResource = new WithHint_Resource();
-    @VisibleForTesting IsChecked isChecked = new IsChecked();
-    @VisibleForTesting IsNotChecked isNotChecked = new IsNotChecked();
-    @VisibleForTesting HasContentDescription hasContentDescription = new HasContentDescription();
-    @VisibleForTesting HasDescendant hasDescendant = new HasDescendant();
-    @VisibleForTesting IsClickable isClickable = new IsClickable();
-    @VisibleForTesting IsDescendantOfA isDescendantOfA = new IsDescendantOfA();
-    @VisibleForTesting WithEffectiveVisibility withEffectiveVisibility = new WithEffectiveVisibility();
-    @VisibleForTesting WithParent withParent = new WithParent();
-    @VisibleForTesting WithChild withChild = new WithChild();
-    @VisibleForTesting IsRoot isRoot = new IsRoot();
-    @VisibleForTesting SupportsInputMethods supportsInputMethods = new SupportsInputMethods();
-    @VisibleForTesting HasImeAction_Integer hasImeActionInteger = new HasImeAction_Integer();
-    @VisibleForTesting HasImeAction_Matcher hasImeActionMatcher = new HasImeAction_Matcher();
-    @VisibleForTesting HasLinks hasLinks = new HasLinks();
-    @VisibleForTesting WithSpinnerText_Resource withSpinnerTextResource = new WithSpinnerText_Resource();
-    @VisibleForTesting WithSpinnerText_Matcher withSpinnerTextMatcher = new WithSpinnerText_Matcher();
-    @VisibleForTesting WithSpinnerText_String withSpinnerTextString = new WithSpinnerText_String();
-    @VisibleForTesting IsJavascriptEnabled isJavascriptEnabled = new IsJavascriptEnabled();
-    @VisibleForTesting HasErrorText_Matcher hasErrorTextMatcher = new HasErrorText_Matcher();
-    @VisibleForTesting HasErrorText_String hasErrorTextString = new HasErrorText_String();
-    @VisibleForTesting WithInputType withInputType = new WithInputType();
-    @VisibleForTesting Chunks.Matching matching = new Chunks.Matching();
-
-    private Linker linker = Linker.REGULAR;
-
+    @VisibleForTesting List<org.hamcrest.Matcher<? super View>> matchers = new ArrayList<>();
+    @VisibleForTesting Linker linker = Linker.REGULAR;
     @Nullable
     private org.hamcrest.Matcher<? super View> cached;
 
@@ -149,60 +52,13 @@ public final class Cortado {
         cached = null;
     }
 
+    private void addMatcher(org.hamcrest.Matcher<View> matcher) {
+        matchers.add(matcher);
+    }
+
     @NonNull
     synchronized org.hamcrest.Matcher<View> get() {
         if (cached == null) {
-            List<org.hamcrest.Matcher<? super View>> matchers = new ArrayList<>();
-
-            assignableFrom.applyIfNeeded(matchers);
-            className.applyIfNeeded(matchers);
-            isDisplayed.applyIfNeeded(matchers);
-            isCompletelyDisplayed.applyIfNeeded(matchers);
-            isDisplayingAtLeast.applyIfNeeded(matchers);
-            isEnabled.applyIfNeeded(matchers);
-            isFocusable.applyIfNeeded(matchers);
-            hasFocus.applyIfNeeded(matchers);
-            isSelected.applyIfNeeded(matchers);
-            hasSibling.applyIfNeeded(matchers);
-            withContentDescriptionResource.applyIfNeeded(matchers);
-            withContentDescriptionString.applyIfNeeded(matchers);
-            withContentDescriptionMatcher.applyIfNeeded(matchers);
-            withIdResource.applyIfNeeded(matchers);
-            withIdMatcher.applyIfNeeded(matchers);
-            withResourceNameString.applyIfNeeded(matchers);
-            withResourceNameMatcher.applyIfNeeded(matchers);
-            withTagKey.applyIfNeeded(matchers);
-            withTagKeyMatcher.applyIfNeeded(matchers);
-            withTagValue.applyIfNeeded(matchers);
-            withTextString.applyIfNeeded(matchers);
-            withTextMatcher.applyIfNeeded(matchers);
-            withTextResource.applyIfNeeded(matchers);
-            withHintString.applyIfNeeded(matchers);
-            withHintMatcher.applyIfNeeded(matchers);
-            withHintResource.applyIfNeeded(matchers);
-            isChecked.applyIfNeeded(matchers);
-            isNotChecked.applyIfNeeded(matchers);
-            hasContentDescription.applyIfNeeded(matchers);
-            hasDescendant.applyIfNeeded(matchers);
-            isClickable.applyIfNeeded(matchers);
-            isDescendantOfA.applyIfNeeded(matchers);
-            withEffectiveVisibility.applyIfNeeded(matchers);
-            withParent.applyIfNeeded(matchers);
-            withChild.applyIfNeeded(matchers);
-            isRoot.applyIfNeeded(matchers);
-            supportsInputMethods.applyIfNeeded(matchers);
-            hasImeActionInteger.applyIfNeeded(matchers);
-            hasImeActionMatcher.applyIfNeeded(matchers);
-            hasLinks.applyIfNeeded(matchers);
-            withSpinnerTextResource.applyIfNeeded(matchers);
-            withSpinnerTextMatcher.applyIfNeeded(matchers);
-            withSpinnerTextString.applyIfNeeded(matchers);
-            isJavascriptEnabled.applyIfNeeded(matchers);
-            hasErrorTextMatcher.applyIfNeeded(matchers);
-            hasErrorTextString.applyIfNeeded(matchers);
-            withInputType.applyIfNeeded(matchers);
-            matching.applyIfNeeded(matchers);
-
             cached = linker.link(matchers);
         }
         //noinspection unchecked
@@ -231,52 +87,52 @@ public final class Cortado {
 
     void isAssignableFrom(Class<? extends View> clazz) {
         clearCached();
-        assignableFrom.store(clazz);
+        addMatcher(ViewMatchers.isAssignableFrom(clazz));
     }
 
     void withClassName(org.hamcrest.Matcher<String> classNameMatcher) {
         clearCached();
-        className.store(classNameMatcher);
+        addMatcher(ViewMatchers.withClassName(classNameMatcher));
     }
 
     void isDisplayed() {
         clearCached();
-        isDisplayed.store(true);
+        addMatcher(ViewMatchers.isDisplayed());
     }
 
     void isCompletelyDisplayed() {
         clearCached();
-        isCompletelyDisplayed.store(true);
+        addMatcher(ViewMatchers.isCompletelyDisplayed());
     }
 
     void isDisplayingAtLeast(int areaPercentage) {
         clearCached();
-        isDisplayingAtLeast.store(areaPercentage);
+        addMatcher(ViewMatchers.isDisplayingAtLeast(areaPercentage));
     }
 
     void isEnabled() {
         clearCached();
-        isEnabled.store(true);
+        addMatcher(ViewMatchers.isEnabled());
     }
 
     void isFocusable() {
         clearCached();
-        isFocusable.store(true);
+        addMatcher(ViewMatchers.isFocusable());
     }
 
     void hasFocus() {
         clearCached();
-        hasFocus.store(true);
+        addMatcher(ViewMatchers.hasFocus());
     }
 
     void isSelected() {
         clearCached();
-        isSelected.store(true);
+        addMatcher(ViewMatchers.isSelected());
     }
 
     void hasSibling(org.hamcrest.Matcher<View> siblingMatcher) {
         clearCached();
-        hasSibling.store(siblingMatcher);
+        addMatcher(ViewMatchers.hasSibling(siblingMatcher));
     }
 
     void hasSibling(Matcher siblingMatcher) {
@@ -285,102 +141,102 @@ public final class Cortado {
 
     void withContentDescription(@StringRes int resourceId) {
         clearCached();
-        withContentDescriptionResource.store(resourceId);
+        addMatcher(ViewMatchers.withContentDescription(resourceId));
     }
 
     void withContentDescription(String text) {
         clearCached();
-        withContentDescriptionString.store(text);
+        addMatcher(ViewMatchers.withContentDescription(text));
     }
 
     void withContentDescription(org.hamcrest.Matcher<? extends CharSequence> charSequenceMatcher) {
         clearCached();
-        withContentDescriptionMatcher.store(charSequenceMatcher);
+        addMatcher(ViewMatchers.withContentDescription(charSequenceMatcher));
     }
 
     void withId(@IdRes int id) {
         clearCached();
-        withIdResource.store(id);
+        addMatcher(ViewMatchers.withId(id));
     }
 
     void withId(org.hamcrest.Matcher<Integer> integerMatcher) {
         clearCached();
-        withIdMatcher.store(integerMatcher);
+        addMatcher(ViewMatchers.withId(integerMatcher));
     }
 
     void withResourceName(String name) {
         clearCached();
-        withResourceNameString.store(name);
+        addMatcher(ViewMatchers.withResourceName(name));
     }
 
     void withResourceName(org.hamcrest.Matcher<String> stringMatcher) {
         clearCached();
-        withResourceNameMatcher.store(stringMatcher);
+        addMatcher(ViewMatchers.withResourceName(stringMatcher));
     }
 
     void withTagKey(int key) {
         clearCached();
-        withTagKey.store(key);
+        addMatcher(ViewMatchers.withTagKey(key));
     }
 
     void withTagKey(int key, org.hamcrest.Matcher<Object> objectMatcher) {
         clearCached();
-        withTagKeyMatcher.store(new Chunks.TagKeyArgs(key, objectMatcher));
+        addMatcher(ViewMatchers.withTagKey(key, objectMatcher));
     }
 
     void withTagValue(org.hamcrest.Matcher<Object> tagValueMatcher) {
         clearCached();
-        withTagValue.store(tagValueMatcher);
+        addMatcher(ViewMatchers.withTagValue(tagValueMatcher));
     }
 
     void withText(String text) {
         clearCached();
-        withTextString.store(text);
+        addMatcher(ViewMatchers.withText(text));
     }
 
     void withText(org.hamcrest.Matcher<String> stringMatcher) {
         clearCached();
-        withTextMatcher.store(stringMatcher);
+        addMatcher(ViewMatchers.withText(stringMatcher));
     }
 
     void withText(@StringRes int resourceId) {
         clearCached();
-        withTextResource.store(resourceId);
+        addMatcher(ViewMatchers.withText(resourceId));
     }
 
     void withHint(String hintText) {
         clearCached();
-        withHintString.store(hintText);
+        addMatcher(ViewMatchers.withHint(hintText));
     }
 
     void withHint(org.hamcrest.Matcher<String> stringMatcher) {
         clearCached();
-        withHintMatcher.store(stringMatcher);
+        addMatcher(ViewMatchers.withHint(stringMatcher));
     }
 
     void withHint(@StringRes int resourceId) {
         clearCached();
-        withHintResource.store(resourceId);
+        addMatcher(ViewMatchers.withHint(resourceId));
     }
 
     void isChecked() {
         clearCached();
-        isChecked.store(true);
+        addMatcher(ViewMatchers.isChecked());
     }
 
     void isNotChecked() {
         clearCached();
-        isNotChecked.store(true);
+        addMatcher(ViewMatchers.isNotChecked());
     }
 
     void hasContentDescription() {
         clearCached();
-        hasContentDescription.store(true);
+        addMatcher(ViewMatchers.hasContentDescription());
     }
 
     void hasDescendant(org.hamcrest.Matcher<View> descendantMatcher) {
         clearCached();
-        hasDescendant.store(descendantMatcher);
+        addMatcher(ViewMatchers.hasDescendant(descendantMatcher));
     }
 
     void hasDescendant(Matcher descendantMatcher) {
@@ -389,12 +245,12 @@ public final class Cortado {
 
     void isClickable() {
         clearCached();
-        isClickable.store(true);
+        addMatcher(ViewMatchers.isClickable());
     }
 
     void isDescendantOfA(org.hamcrest.Matcher<View> ancestorMatcher) {
         clearCached();
-        isDescendantOfA.store(ancestorMatcher);
+        addMatcher(ViewMatchers.isDescendantOfA(ancestorMatcher));
     }
 
     void isDescendantOfA(Matcher ancestorMatcher) {
@@ -403,12 +259,12 @@ public final class Cortado {
 
     void withEffectiveVisibility(ViewMatchers.Visibility visibility) {
         clearCached();
-        withEffectiveVisibility.store(visibility);
+        addMatcher(ViewMatchers.withEffectiveVisibility(visibility));
     }
 
     void withParent(org.hamcrest.Matcher<View> parentMatcher) {
         clearCached();
-        withParent.store(parentMatcher);
+        addMatcher(ViewMatchers.withParent(parentMatcher));
     }
 
     void withParent(Matcher parentMatcher) {
@@ -417,7 +273,7 @@ public final class Cortado {
 
     void withChild(org.hamcrest.Matcher<View> childMatcher) {
         clearCached();
-        withChild.store(childMatcher);
+        addMatcher(ViewMatchers.withChild(childMatcher));
     }
 
     void withChild(Matcher childMatcher) {
@@ -426,70 +282,70 @@ public final class Cortado {
 
     void isRoot() {
         clearCached();
-        isRoot.store(true);
+        addMatcher(ViewMatchers.isRoot());
     }
 
     void supportsInputMethods() {
         clearCached();
-        supportsInputMethods.store(true);
+        addMatcher(ViewMatchers.supportsInputMethods());
     }
 
     void hasImeAction(int imeAction) {
         clearCached();
-        hasImeActionInteger.store(imeAction);
+        addMatcher(ViewMatchers.hasImeAction(imeAction));
     }
 
     void hasImeAction(org.hamcrest.Matcher<Integer> imeActionMatcher) {
         clearCached();
-        hasImeActionMatcher.store(imeActionMatcher);
+        addMatcher(ViewMatchers.hasImeAction(imeActionMatcher));
     }
 
     void hasLinks() {
         clearCached();
-        hasLinks.store(true);
+        addMatcher(ViewMatchers.hasLinks());
     }
 
     void withSpinnerText(@StringRes int resourceId) {
         clearCached();
-        withSpinnerTextResource.store(resourceId);
+        addMatcher(ViewMatchers.withSpinnerText(resourceId));
     }
 
     void withSpinnerText(org.hamcrest.Matcher<String> stringMatcher) {
         clearCached();
-        withSpinnerTextMatcher.store(stringMatcher);
+        addMatcher(ViewMatchers.withSpinnerText(stringMatcher));
     }
 
     void withSpinnerText(String text) {
         clearCached();
-        withSpinnerTextString.store(text);
+        addMatcher(ViewMatchers.withSpinnerText(text));
     }
 
     void isJavascriptEnabled() {
         clearCached();
-        isJavascriptEnabled.store(true);
+        addMatcher(ViewMatchers.isJavascriptEnabled());
     }
 
     void hasErrorText(org.hamcrest.Matcher<String> stringMatcher) {
         clearCached();
-        hasErrorTextMatcher.store(stringMatcher);
+        addMatcher(ViewMatchers.hasErrorText(stringMatcher));
     }
 
     void hasErrorText(String expectedError) {
         clearCached();
-        hasErrorTextString.store(expectedError);
+        addMatcher(ViewMatchers.hasErrorText(expectedError));
     }
 
     void withInputType(int inputType) {
         clearCached();
-        withInputType.store(inputType);
+        addMatcher(ViewMatchers.withInputType(inputType));
     }
 
-    void matching(org.hamcrest.Matcher<View> matcher){
+    void matching(org.hamcrest.Matcher<View> matcher) {
         clearCached();
-        matching.store(matcher);
+        addMatcher(matcher);
     }
 
-    void matching(Matcher matcher){
+    void matching(Matcher matcher) {
         matching((org.hamcrest.Matcher<View>) matcher);
     }
 
