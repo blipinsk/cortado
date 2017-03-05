@@ -27,6 +27,8 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.view.View;
 
+import org.hamcrest.Matchers;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +36,8 @@ public final class Cortado {
 
     @VisibleForTesting List<org.hamcrest.Matcher<? super View>> matchers = new ArrayList<>();
     @VisibleForTesting Linker linker = Linker.REGULAR;
-    @Nullable
-    private org.hamcrest.Matcher<? super View> cached;
+    @VisibleForTesting boolean negateNextMatcher = false;
+    @Nullable private org.hamcrest.Matcher<? super View> cached;
 
     private Cortado() {
     }
@@ -52,8 +54,17 @@ public final class Cortado {
         cached = null;
     }
 
-    private void addMatcher(org.hamcrest.Matcher<View> matcher) {
+    @VisibleForTesting
+    void addMatcher(org.hamcrest.Matcher<View> matcher) {
+        if (negateNextMatcher) {
+            negateNextMatcher = false;
+            matcher = Matchers.not(matcher);
+        }
         matchers.add(matcher);
+    }
+
+    private void negateNextMatcher() {
+        negateNextMatcher = true;
     }
 
     @NonNull
@@ -354,7 +365,8 @@ public final class Cortado {
         private Start() {
         }
 
-        public final class Matcher extends NotCompletable<OrAnd.Matcher> {
+        public final class Matcher extends NotCompletable<OrAnd.Matcher>
+                implements Not<Negated.Start.Matcher> {
 
             Matcher() {
                 super(Cortado.this);
@@ -369,9 +381,15 @@ public final class Cortado {
             Cortado getCortado() {
                 return Cortado.this;
             }
+
+            @Override
+            public Negated.Start.Matcher not() {
+                return new Negated().new Start().new Matcher();
+            }
         }
 
-        public final class ViewInteraction extends NotCompletable<OrAnd.ViewInteraction> {
+        public final class ViewInteraction extends NotCompletable<OrAnd.ViewInteraction>
+                implements Not<Negated.Start.ViewInteraction> {
 
             ViewInteraction() {
                 super(Cortado.this);
@@ -386,6 +404,11 @@ public final class Cortado {
             Cortado getCortado() {
                 return Cortado.this;
             }
+
+            @Override
+            public Negated.Start.ViewInteraction not() {
+                return new Negated().new Start().new ViewInteraction();
+            }
         }
     }
 
@@ -399,7 +422,8 @@ public final class Cortado {
             private Or() {
             }
 
-            public final class Matcher extends NotCompletable<Cortado.Or.Matcher> {
+            public final class Matcher extends NotCompletable<Cortado.Or.Matcher>
+                    implements Not<Negated.Unfinished.Or.Matcher> {
 
                 private Matcher() {
                     super(Cortado.this);
@@ -414,9 +438,15 @@ public final class Cortado {
                 Cortado getCortado() {
                     return Cortado.this;
                 }
+
+                @Override
+                public Negated.Unfinished.Or.Matcher not() {
+                    return new Negated().new Unfinished().new Or().new Matcher();
+                }
             }
 
-            public final class ViewInteraction extends NotCompletable<Cortado.Or.ViewInteraction> {
+            public final class ViewInteraction extends NotCompletable<Cortado.Or.ViewInteraction>
+                    implements Not<Negated.Unfinished.Or.ViewInteraction> {
 
                 private ViewInteraction() {
                     super(Cortado.this);
@@ -431,6 +461,11 @@ public final class Cortado {
                 Cortado getCortado() {
                     return Cortado.this;
                 }
+
+                @Override
+                public Negated.Unfinished.Or.ViewInteraction not() {
+                    return new Negated().new Unfinished().new Or().new ViewInteraction();
+                }
             }
         }
 
@@ -439,7 +474,8 @@ public final class Cortado {
             private And() {
             }
 
-            public final class Matcher extends NotCompletable<Cortado.And.Matcher> {
+            public final class Matcher extends NotCompletable<Cortado.And.Matcher>
+                    implements Not<Negated.Unfinished.And.Matcher> {
 
                 private Matcher() {
                     super(Cortado.this);
@@ -454,9 +490,15 @@ public final class Cortado {
                 Cortado getCortado() {
                     return Cortado.this;
                 }
+
+                @Override
+                public Negated.Unfinished.And.Matcher not() {
+                    return new Negated().new Unfinished().new And().new Matcher();
+                }
             }
 
-            public final class ViewInteraction extends NotCompletable<Cortado.And.ViewInteraction> {
+            public final class ViewInteraction extends NotCompletable<Cortado.And.ViewInteraction>
+                    implements Not<Negated.Unfinished.And.ViewInteraction> {
 
                 private ViewInteraction() {
                     super(Cortado.this);
@@ -471,6 +513,11 @@ public final class Cortado {
                 Cortado getCortado() {
                     return Cortado.this;
                 }
+
+                @Override
+                public Negated.Unfinished.And.ViewInteraction not() {
+                    return new Negated().new Unfinished().new And().new ViewInteraction();
+                }
             }
         }
     }
@@ -480,34 +527,40 @@ public final class Cortado {
         OrAnd() {
         }
 
-        public final class Matcher extends cortado.Matcher {
+        public final class Matcher extends cortado.Matcher
+                implements cortado.Or<Unfinished.Or.Matcher>, cortado.And<Unfinished.And.Matcher> {
 
             Matcher() {
                 super(Cortado.this);
             }
 
+            @Override
             public Unfinished.Or.Matcher or() {
                 Cortado.this.or();
                 return new Unfinished().new Or().new Matcher();
             }
 
+            @Override
             public Unfinished.And.Matcher and() {
                 Cortado.this.and();
                 return new Unfinished().new And().new Matcher();
             }
         }
 
-        public final class ViewInteraction extends cortado.ViewInteraction {
+        public final class ViewInteraction extends cortado.ViewInteraction
+                implements cortado.Or<Unfinished.Or.ViewInteraction>, cortado.And<Unfinished.And.ViewInteraction> {
 
             ViewInteraction() {
                 super(Cortado.this);
             }
 
+            @Override
             public Unfinished.Or.ViewInteraction or() {
                 Cortado.this.or();
                 return new Unfinished().new Or().new ViewInteraction();
             }
 
+            @Override
             public Unfinished.And.ViewInteraction and() {
                 Cortado.this.and();
                 return new Unfinished().new And().new ViewInteraction();
@@ -520,23 +573,27 @@ public final class Cortado {
         private Or() {
         }
 
-        public final class Matcher extends cortado.Matcher {
+        public final class Matcher extends cortado.Matcher
+                implements cortado.Or<Unfinished.Or.Matcher> {
 
             private Matcher() {
                 super(Cortado.this);
             }
 
+            @Override
             public Unfinished.Or.Matcher or() {
                 return new Unfinished().new Or().new Matcher();
             }
         }
 
-        public final class ViewInteraction extends cortado.ViewInteraction {
+        public final class ViewInteraction extends cortado.ViewInteraction
+                implements cortado.Or<Unfinished.Or.ViewInteraction> {
 
             private ViewInteraction() {
                 super(Cortado.this);
             }
 
+            @Override
             public Unfinished.Or.ViewInteraction or() {
                 return new Unfinished().new Or().new ViewInteraction();
             }
@@ -548,25 +605,162 @@ public final class Cortado {
         private And() {
         }
 
-        public final class Matcher extends cortado.Matcher {
+        public final class Matcher extends cortado.Matcher
+                implements cortado.And<Unfinished.And.Matcher> {
 
             private Matcher() {
                 super(Cortado.this);
             }
 
+            @Override
             public Unfinished.And.Matcher and() {
                 return new Unfinished().new And().new Matcher();
             }
         }
 
-        public final class ViewInteraction extends cortado.ViewInteraction {
+        public final class ViewInteraction extends cortado.ViewInteraction
+                implements cortado.And<Unfinished.And.ViewInteraction> {
 
             private ViewInteraction() {
                 super(Cortado.this);
             }
 
+            @Override
             public Unfinished.And.ViewInteraction and() {
                 return new Unfinished().new And().new ViewInteraction();
+            }
+        }
+    }
+
+    public final class Negated {
+
+        private Negated() {
+            negateNextMatcher();
+        }
+
+        public final class Start {
+
+            private Start() {
+            }
+
+            public final class Matcher extends NotCompletable<OrAnd.Matcher> {
+
+                Matcher() {
+                    super(Cortado.this);
+                }
+
+                @Override
+                OrAnd.Matcher returned() {
+                    return new OrAnd().new Matcher();
+                }
+
+                @VisibleForTesting
+                Cortado getCortado() {
+                    return Cortado.this;
+                }
+            }
+
+            public final class ViewInteraction extends NotCompletable<OrAnd.ViewInteraction> {
+
+                ViewInteraction() {
+                    super(Cortado.this);
+                }
+
+                @Override
+                OrAnd.ViewInteraction returned() {
+                    return new OrAnd().new ViewInteraction();
+                }
+
+                @VisibleForTesting
+                Cortado getCortado() {
+                    return Cortado.this;
+                }
+            }
+        }
+
+        public final class Unfinished {
+
+            private Unfinished() {
+            }
+
+            public final class Or {
+
+                private Or() {
+                }
+
+                public final class Matcher extends NotCompletable<Cortado.Or.Matcher> {
+
+                    private Matcher() {
+                        super(Cortado.this);
+                    }
+
+                    @Override
+                    Cortado.Or.Matcher returned() {
+                        return new Cortado.Or().new Matcher();
+                    }
+
+                    @VisibleForTesting
+                    Cortado getCortado() {
+                        return Cortado.this;
+                    }
+                }
+
+                public final class ViewInteraction extends NotCompletable<Cortado.Or.ViewInteraction> {
+
+                    private ViewInteraction() {
+                        super(Cortado.this);
+                    }
+
+                    @Override
+                    Cortado.Or.ViewInteraction returned() {
+                        return new Cortado.Or().new ViewInteraction();
+                    }
+
+                    @VisibleForTesting
+                    Cortado getCortado() {
+                        return Cortado.this;
+                    }
+                }
+            }
+
+            public final class And {
+
+                private And() {
+                }
+
+                public final class Matcher extends NotCompletable<Cortado.And.Matcher> {
+
+                    private Matcher() {
+                        super(Cortado.this);
+                    }
+
+                    @Override
+                    Cortado.And.Matcher returned() {
+                        return new Cortado.And().new Matcher();
+                    }
+
+                    @VisibleForTesting
+                    Cortado getCortado() {
+                        return Cortado.this;
+                    }
+                }
+
+                public final class ViewInteraction extends NotCompletable<Cortado.And.ViewInteraction> {
+
+                    private ViewInteraction() {
+                        super(Cortado.this);
+                    }
+
+                    @Override
+                    Cortado.And.ViewInteraction returned() {
+                        return new Cortado.And().new ViewInteraction();
+                    }
+
+                    @VisibleForTesting
+                    Cortado getCortado() {
+                        return Cortado.this;
+                    }
+                }
             }
         }
     }

@@ -33,8 +33,19 @@ public final class Utils {
             cortadoMatcher.describeTo(cortadoDescription);
             espressoMatcher.describeTo(espressoDescription);
 
-            assertWithMessage("Cortado matcher does not equal Espresso matcher. The descriptions")
+            assertWithMessage("Cortado matcher is not equal to Espresso matcher. The descriptions")
                     .that(cortadoDescription.toString()).isEqualTo(espressoDescription.toString());
+        }
+
+        public final void isNotEqualTo(org.hamcrest.Matcher espressoMatcher) {
+            RecordingDescription cortadoDescription = new RecordingDescription();
+            RecordingDescription espressoDescription = new RecordingDescription();
+
+            cortadoMatcher.describeTo(cortadoDescription);
+            espressoMatcher.describeTo(espressoDescription);
+
+            assertWithMessage("Cortado matcher is equal to Espresso matcher. The descriptions")
+                    .that(cortadoDescription.toString()).isNotEqualTo(espressoDescription.toString());
         }
     }
 
