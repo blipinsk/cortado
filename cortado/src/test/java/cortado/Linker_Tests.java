@@ -11,9 +11,9 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
-import cortado.internal.Order;
-import cortado.internal.OrderedJUnit4TestRunner;
-import cortado.internal.SimpleWrappingViewMatcher;
+import internal.Order;
+import internal.OrderedJUnit4TestRunner;
+import internal.SimpleWrappingViewMatcher;
 
 import static com.google.common.truth.Truth.assertThat;
 import static cortado.Linker.AND;

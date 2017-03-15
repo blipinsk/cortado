@@ -13,27 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cortado;
+package internal;
 
-import android.view.View;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import org.hamcrest.Matcher;
-
-import java.util.List;
-
-abstract class Chunk<T> {
-
-    abstract void store(T chunkValue);
-
-    protected abstract Matcher<View> matcher(T chunkValue);
-
-    protected abstract boolean isPresent();
-
-    protected abstract void apply(List<Matcher<? super View>> matchers);
-
-    void applyIfNeeded(List<Matcher<? super View>> matchers) {
-        if (isPresent()) {
-            apply(matchers);
-        }
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD})
+public @interface Order {
+    int value();
 }

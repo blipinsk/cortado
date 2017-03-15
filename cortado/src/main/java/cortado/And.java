@@ -15,28 +15,6 @@
  */
 package cortado;
 
-import android.view.View;
-
-import org.hamcrest.Matcher;
-
-import java.util.List;
-
-abstract class ElementaryChunk<T> extends Chunk<T> {
-
-    private T chunkValue;
-
-    @Override
-    public void store(T chunkValue) {
-        this.chunkValue = chunkValue;
-    }
-
-    @Override
-    public boolean isPresent() {
-        return chunkValue != null;
-    }
-
-    @Override
-    public void apply(List<Matcher<? super View>> matchers) {
-        matchers.add(matcher(chunkValue));
-    }
+interface And<T> {
+    T and();
 }

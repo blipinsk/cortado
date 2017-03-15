@@ -15,31 +15,6 @@
  */
 package cortado;
 
-import android.view.View;
-
-import org.hamcrest.Matcher;
-
-import java.util.ArrayList;
-import java.util.List;
-
-abstract class CombinedChunk<T> extends Chunk<T> {
-
-    private List<T> chunkValues = new ArrayList<>();
-
-    @Override
-    public void store(T chunkValue) {
-        this.chunkValues.add(chunkValue);
-    }
-
-    @Override
-    public boolean isPresent() {
-        return chunkValues.size() != 0;
-    }
-
-    @Override
-    public void apply(List<Matcher<? super View>> matchers) {
-        for (T chunkValue : chunkValues) {
-            matchers.add(matcher(chunkValue));
-        }
-    }
+interface Not<T> {
+    T not();
 }
