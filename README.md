@@ -111,7 +111,7 @@ Including In Your Project
 
 ```groovy
 dependencies {
-    androidTestCompile 'com.bartoszlipinski:cortado:1.0.1'
+    androidTestCompile 'com.bartoszlipinski:cortado:1.1.0'
 }
 ```
 
