@@ -1,4 +1,4 @@
-package cortado.internal;
+package internal;
 
 import android.view.View;
 

@@ -1,4 +1,4 @@
-package cortado.internal;
+package internal;
 
 import org.hamcrest.Description;
 import org.hamcrest.SelfDescribing;

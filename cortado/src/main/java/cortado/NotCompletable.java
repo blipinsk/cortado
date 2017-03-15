@@ -31,325 +31,325 @@ public abstract class NotCompletable<T> implements Matching<T> {
     abstract T returned();
 
     @Override
-    public final T isAssignableFrom(Class<? extends View> clazz) {
+    public T isAssignableFrom(Class<? extends View> clazz) {
         cortado.isAssignableFrom(clazz);
         return returned();
     }
 
     @Override
-    public final T withClassName(org.hamcrest.Matcher<String> classNameMatcher) {
+    public T withClassName(org.hamcrest.Matcher<String> classNameMatcher) {
         cortado.withClassName(classNameMatcher);
         return returned();
     }
 
     @Override
-    public final T isDisplayed() {
+    public T isDisplayed() {
         cortado.isDisplayed();
         return returned();
     }
 
     @Override
-    public final T isCompletelyDisplayed() {
+    public T isCompletelyDisplayed() {
         cortado.isCompletelyDisplayed();
         return returned();
     }
 
     @Override
-    public final T isDisplayingAtLeast(int areaPercentage) {
+    public T isDisplayingAtLeast(int areaPercentage) {
         cortado.isDisplayingAtLeast(areaPercentage);
         return returned();
     }
 
     @Override
-    public final T isEnabled() {
+    public T isEnabled() {
         cortado.isEnabled();
         return returned();
     }
 
     @Override
-    public final T isFocusable() {
+    public T isFocusable() {
         cortado.isFocusable();
         return returned();
     }
 
     @Override
-    public final T hasFocus() {
+    public T hasFocus() {
         cortado.hasFocus();
         return returned();
     }
 
     @Override
-    public final T isSelected() {
+    public T isSelected() {
         cortado.isSelected();
         return returned();
     }
 
     @Override
-    public final T hasSibling(org.hamcrest.Matcher<View> siblingMatcher) {
+    public T hasSibling(org.hamcrest.Matcher<View> siblingMatcher) {
         cortado.hasSibling(siblingMatcher);
         return returned();
     }
 
     @Override
-    public final T hasSibling(Matcher siblingMatcher) {
+    public T hasSibling(Matcher siblingMatcher) {
         cortado.hasSibling(siblingMatcher);
         return returned();
     }
 
     @Override
-    public final T withContentDescription(@StringRes int resourceId) {
+    public T withContentDescription(@StringRes int resourceId) {
         cortado.withContentDescription(resourceId);
         return returned();
     }
 
     @Override
-    public final T withContentDescription(String text) {
+    public T withContentDescription(String text) {
         cortado.withContentDescription(text);
         return returned();
     }
 
     @Override
-    public final T withContentDescription(org.hamcrest.Matcher<? extends CharSequence> charSequenceMatcher) {
+    public T withContentDescription(org.hamcrest.Matcher<? extends CharSequence> charSequenceMatcher) {
         cortado.withContentDescription(charSequenceMatcher);
         return returned();
     }
 
     @Override
-    public final T withId(@IdRes int id) {
+    public T withId(@IdRes int id) {
         cortado.withId(id);
         return returned();
     }
 
     @Override
-    public final T withId(org.hamcrest.Matcher<Integer> integerMatcher) {
+    public T withId(org.hamcrest.Matcher<Integer> integerMatcher) {
         cortado.withId(integerMatcher);
         return returned();
     }
 
     @Override
-    public final T withResourceName(String name) {
+    public T withResourceName(String name) {
         cortado.withResourceName(name);
         return returned();
     }
 
     @Override
-    public final T withResourceName(org.hamcrest.Matcher<String> stringMatcher) {
+    public T withResourceName(org.hamcrest.Matcher<String> stringMatcher) {
         cortado.withResourceName(stringMatcher);
         return returned();
     }
 
     @Override
-    public final T withTagKey(int key) {
+    public T withTagKey(int key) {
         cortado.withTagKey(key);
         return returned();
     }
 
     @Override
-    public final T withTagKey(int key, org.hamcrest.Matcher<Object> objectMatcher) {
+    public T withTagKey(int key, org.hamcrest.Matcher<Object> objectMatcher) {
         cortado.withTagKey(key, objectMatcher);
         return returned();
     }
 
     @Override
-    public final T withTagValue(org.hamcrest.Matcher<Object> tagValueMatcher) {
+    public T withTagValue(org.hamcrest.Matcher<Object> tagValueMatcher) {
         cortado.withTagValue(tagValueMatcher);
         return returned();
     }
 
     @Override
-    public final T withText(String text) {
+    public T withText(String text) {
         cortado.withText(text);
         return returned();
     }
 
     @Override
-    public final T withText(org.hamcrest.Matcher<String> stringMatcher) {
+    public T withText(org.hamcrest.Matcher<String> stringMatcher) {
         cortado.withText(stringMatcher);
         return returned();
     }
 
     @Override
-    public final T withText(@StringRes int resourceId) {
+    public T withText(@StringRes int resourceId) {
         cortado.withText(resourceId);
         return returned();
     }
 
     @Override
-    public final T withHint(String hintText) {
+    public T withHint(String hintText) {
         cortado.withHint(hintText);
         return returned();
     }
 
     @Override
-    public final T withHint(org.hamcrest.Matcher<String> stringMatcher) {
+    public T withHint(org.hamcrest.Matcher<String> stringMatcher) {
         cortado.withHint(stringMatcher);
         return returned();
     }
 
     @Override
-    public final T withHint(@StringRes int resourceId) {
+    public T withHint(@StringRes int resourceId) {
         cortado.withHint(resourceId);
         return returned();
     }
 
     @Override
-    public final T isChecked() {
+    public T isChecked() {
         cortado.isChecked();
         return returned();
     }
 
     @Override
-    public final T isNotChecked() {
+    public T isNotChecked() {
         cortado.isNotChecked();
         return returned();
     }
 
     @Override
-    public final T hasContentDescription() {
+    public T hasContentDescription() {
         cortado.hasContentDescription();
         return returned();
     }
 
     @Override
-    public final T hasDescendant(org.hamcrest.Matcher<View> descendantMatcher) {
+    public T hasDescendant(org.hamcrest.Matcher<View> descendantMatcher) {
         cortado.hasDescendant(descendantMatcher);
         return returned();
     }
 
     @Override
-    public final T hasDescendant(Matcher descendantMatcher) {
+    public T hasDescendant(Matcher descendantMatcher) {
         cortado.hasDescendant(descendantMatcher);
         return returned();
     }
 
     @Override
-    public final T isClickable() {
+    public T isClickable() {
         cortado.isClickable();
         return returned();
     }
 
     @Override
-    public final T isDescendantOfA(org.hamcrest.Matcher<View> ancestorMatcher) {
+    public T isDescendantOfA(org.hamcrest.Matcher<View> ancestorMatcher) {
         cortado.isDescendantOfA(ancestorMatcher);
         return returned();
     }
 
     @Override
-    public final T isDescendantOfA(Matcher ancestorMatcher) {
+    public T isDescendantOfA(Matcher ancestorMatcher) {
         cortado.isDescendantOfA(ancestorMatcher);
         return returned();
     }
 
     @Override
-    public final T withEffectiveVisibility(ViewMatchers.Visibility visibility) {
+    public T withEffectiveVisibility(ViewMatchers.Visibility visibility) {
         cortado.withEffectiveVisibility(visibility);
         return returned();
     }
 
     @Override
-    public final T withParent(org.hamcrest.Matcher<View> parentMatcher) {
+    public T withParent(org.hamcrest.Matcher<View> parentMatcher) {
         cortado.withParent(parentMatcher);
         return returned();
     }
 
     @Override
-    public final T withParent(Matcher parentMatcher) {
+    public T withParent(Matcher parentMatcher) {
         cortado.withParent(parentMatcher);
         return returned();
     }
 
     @Override
-    public final T withChild(org.hamcrest.Matcher<View> childMatcher) {
+    public T withChild(org.hamcrest.Matcher<View> childMatcher) {
         cortado.withChild(childMatcher);
         return returned();
     }
 
     @Override
-    public final T withChild(Matcher childMatcher) {
+    public T withChild(Matcher childMatcher) {
         cortado.withChild(childMatcher);
         return returned();
     }
 
     @Override
-    public final T isRoot() {
+    public T isRoot() {
         cortado.isRoot();
         return returned();
     }
 
     @Override
-    public final T supportsInputMethods() {
+    public T supportsInputMethods() {
         cortado.supportsInputMethods();
         return returned();
     }
 
     @Override
-    public final T hasImeAction(int imeAction) {
+    public T hasImeAction(int imeAction) {
         cortado.hasImeAction(imeAction);
         return returned();
     }
 
     @Override
-    public final T hasImeAction(org.hamcrest.Matcher<Integer> imeActionMatcher) {
+    public T hasImeAction(org.hamcrest.Matcher<Integer> imeActionMatcher) {
         cortado.hasImeAction(imeActionMatcher);
         return returned();
     }
 
     @Override
-    public final T hasLinks() {
+    public T hasLinks() {
         cortado.hasLinks();
         return returned();
     }
 
     @Override
-    public final T withSpinnerText(@StringRes int resourceId) {
+    public T withSpinnerText(@StringRes int resourceId) {
         cortado.withSpinnerText(resourceId);
         return returned();
     }
 
     @Override
-    public final T withSpinnerText(org.hamcrest.Matcher<String> stringMatcher) {
+    public T withSpinnerText(org.hamcrest.Matcher<String> stringMatcher) {
         cortado.withSpinnerText(stringMatcher);
         return returned();
     }
 
     @Override
-    public final T withSpinnerText(String text) {
+    public T withSpinnerText(String text) {
         cortado.withSpinnerText(text);
         return returned();
     }
 
     @Override
-    public final T isJavascriptEnabled() {
+    public T isJavascriptEnabled() {
         cortado.isJavascriptEnabled();
         return returned();
     }
 
     @Override
-    public final T hasErrorText(org.hamcrest.Matcher<String> stringMatcher) {
+    public T hasErrorText(org.hamcrest.Matcher<String> stringMatcher) {
         cortado.hasErrorText(stringMatcher);
         return returned();
     }
 
     @Override
-    public final T hasErrorText(String expectedError) {
+    public T hasErrorText(String expectedError) {
         cortado.hasErrorText(expectedError);
         return returned();
     }
 
     @Override
-    public final T withInputType(int inputType) {
+    public T withInputType(int inputType) {
         cortado.withInputType(inputType);
         return returned();
     }
 
     @Override
-    public final T matching(org.hamcrest.Matcher<View> matcher) {
+    public T matching(org.hamcrest.Matcher<View> matcher) {
         cortado.matching(matcher);
         return returned();
     }
 
     @Override
-    public final T matching(Matcher matcher) {
+    public T matching(Matcher matcher) {
         cortado.matching(matcher);
         return returned();
     }

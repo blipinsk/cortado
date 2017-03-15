@@ -34,28 +34,36 @@ import java.util.List;
 
 public final class Cortado {
 
-    @VisibleForTesting List<org.hamcrest.Matcher<? super View>> matchers = new ArrayList<>();
-    @VisibleForTesting Linker linker = Linker.REGULAR;
-    @VisibleForTesting boolean negateNextMatcher = false;
-    @Nullable private org.hamcrest.Matcher<? super View> cached;
+    @VisibleForTesting
+    List<org.hamcrest.Matcher<? super View>> matchers = new ArrayList<>();
+    @VisibleForTesting
+    Linker linker = Linker.REGULAR;
+    @VisibleForTesting
+    boolean negateNextMatcher = false;
+    @Nullable
+    private org.hamcrest.Matcher<? super View> cached;
 
     private Cortado() {
     }
 
-    public static Start.ViewInteraction onView() {
-        return new Cortado().new Start().new ViewInteraction();
+    public static cortado.Start.ViewInteraction onView() {
+        return new cortado.Start(new Cortado()).new ViewInteraction();
     }
 
-    public static Start.Matcher view() {
-        return new Cortado().new Start().new Matcher();
+    public static cortado.Start.Matcher view() {
+        return new cortado.Start(new Cortado()).new Matcher();
     }
 
     private synchronized void clearCached() {
         cached = null;
     }
 
+    final void negateNextMatcher() {
+        negateNextMatcher = true;
+    }
+
     @VisibleForTesting
-    void addMatcher(org.hamcrest.Matcher<View> matcher) {
+    final void addMatcher(org.hamcrest.Matcher<View> matcher) {
         if (negateNextMatcher) {
             negateNextMatcher = false;
             matcher = Matchers.not(matcher);
@@ -63,12 +71,8 @@ public final class Cortado {
         matchers.add(matcher);
     }
 
-    private void negateNextMatcher() {
-        negateNextMatcher = true;
-    }
-
     @NonNull
-    synchronized org.hamcrest.Matcher<View> get() {
+    final synchronized org.hamcrest.Matcher<View> get() {
         if (cached == null) {
             cached = linker.link(matchers);
         }
@@ -77,446 +81,422 @@ public final class Cortado {
     }
 
     @NonNull
-    ViewInteraction perform(final ViewAction... viewActions) {
+    final ViewInteraction perform(final ViewAction... viewActions) {
         return Espresso.onView(get()).perform(viewActions);
     }
 
     @NonNull
-    ViewInteraction check(final ViewAssertion viewAssert) {
+    final ViewInteraction check(final ViewAssertion viewAssert) {
         return Espresso.onView(get()).check(viewAssert);
     }
 
-    private void and() {
+    private final void and() {
         clearCached();
         linker = Linker.AND;
     }
 
-    private void or() {
+    private final void or() {
         clearCached();
         linker = Linker.OR;
     }
 
-    void isAssignableFrom(Class<? extends View> clazz) {
+    final void isAssignableFrom(Class<? extends View> clazz) {
         clearCached();
         addMatcher(ViewMatchers.isAssignableFrom(clazz));
     }
 
-    void withClassName(org.hamcrest.Matcher<String> classNameMatcher) {
+    final void withClassName(org.hamcrest.Matcher<String> classNameMatcher) {
         clearCached();
         addMatcher(ViewMatchers.withClassName(classNameMatcher));
     }
 
-    void isDisplayed() {
+    final void isDisplayed() {
         clearCached();
         addMatcher(ViewMatchers.isDisplayed());
     }
 
-    void isCompletelyDisplayed() {
+    final void isCompletelyDisplayed() {
         clearCached();
         addMatcher(ViewMatchers.isCompletelyDisplayed());
     }
 
-    void isDisplayingAtLeast(int areaPercentage) {
+    final void isDisplayingAtLeast(int areaPercentage) {
         clearCached();
         addMatcher(ViewMatchers.isDisplayingAtLeast(areaPercentage));
     }
 
-    void isEnabled() {
+    final void isEnabled() {
         clearCached();
         addMatcher(ViewMatchers.isEnabled());
     }
 
-    void isFocusable() {
+    final void isFocusable() {
         clearCached();
         addMatcher(ViewMatchers.isFocusable());
     }
 
-    void hasFocus() {
+    final void hasFocus() {
         clearCached();
         addMatcher(ViewMatchers.hasFocus());
     }
 
-    void isSelected() {
+    final void isSelected() {
         clearCached();
         addMatcher(ViewMatchers.isSelected());
     }
 
-    void hasSibling(org.hamcrest.Matcher<View> siblingMatcher) {
+    final void hasSibling(org.hamcrest.Matcher<View> siblingMatcher) {
         clearCached();
         addMatcher(ViewMatchers.hasSibling(siblingMatcher));
     }
 
-    void hasSibling(Matcher siblingMatcher) {
+    final void hasSibling(Matcher siblingMatcher) {
         hasSibling((org.hamcrest.Matcher<View>) siblingMatcher);
     }
 
-    void withContentDescription(@StringRes int resourceId) {
+    final void withContentDescription(@StringRes int resourceId) {
         clearCached();
         addMatcher(ViewMatchers.withContentDescription(resourceId));
     }
 
-    void withContentDescription(String text) {
+    final void withContentDescription(String text) {
         clearCached();
         addMatcher(ViewMatchers.withContentDescription(text));
     }
 
-    void withContentDescription(org.hamcrest.Matcher<? extends CharSequence> charSequenceMatcher) {
+    final void withContentDescription(org.hamcrest.Matcher<? extends CharSequence> charSequenceMatcher) {
         clearCached();
         addMatcher(ViewMatchers.withContentDescription(charSequenceMatcher));
     }
 
-    void withId(@IdRes int id) {
+    final void withId(@IdRes int id) {
         clearCached();
         addMatcher(ViewMatchers.withId(id));
     }
 
-    void withId(org.hamcrest.Matcher<Integer> integerMatcher) {
+    final void withId(org.hamcrest.Matcher<Integer> integerMatcher) {
         clearCached();
         addMatcher(ViewMatchers.withId(integerMatcher));
     }
 
-    void withResourceName(String name) {
+    final void withResourceName(String name) {
         clearCached();
         addMatcher(ViewMatchers.withResourceName(name));
     }
 
-    void withResourceName(org.hamcrest.Matcher<String> stringMatcher) {
+    final void withResourceName(org.hamcrest.Matcher<String> stringMatcher) {
         clearCached();
         addMatcher(ViewMatchers.withResourceName(stringMatcher));
     }
 
-    void withTagKey(int key) {
+    final void withTagKey(int key) {
         clearCached();
         addMatcher(ViewMatchers.withTagKey(key));
     }
 
-    void withTagKey(int key, org.hamcrest.Matcher<Object> objectMatcher) {
+    final void withTagKey(int key, org.hamcrest.Matcher<Object> objectMatcher) {
         clearCached();
         addMatcher(ViewMatchers.withTagKey(key, objectMatcher));
     }
 
-    void withTagValue(org.hamcrest.Matcher<Object> tagValueMatcher) {
+    final void withTagValue(org.hamcrest.Matcher<Object> tagValueMatcher) {
         clearCached();
         addMatcher(ViewMatchers.withTagValue(tagValueMatcher));
     }
 
-    void withText(String text) {
+    final void withText(String text) {
         clearCached();
         addMatcher(ViewMatchers.withText(text));
     }
 
-    void withText(org.hamcrest.Matcher<String> stringMatcher) {
+    final void withText(org.hamcrest.Matcher<String> stringMatcher) {
         clearCached();
         addMatcher(ViewMatchers.withText(stringMatcher));
     }
 
-    void withText(@StringRes int resourceId) {
+    final void withText(@StringRes int resourceId) {
         clearCached();
         addMatcher(ViewMatchers.withText(resourceId));
     }
 
-    void withHint(String hintText) {
+    final void withHint(String hintText) {
         clearCached();
         addMatcher(ViewMatchers.withHint(hintText));
     }
 
-    void withHint(org.hamcrest.Matcher<String> stringMatcher) {
+    final void withHint(org.hamcrest.Matcher<String> stringMatcher) {
         clearCached();
         addMatcher(ViewMatchers.withHint(stringMatcher));
     }
 
-    void withHint(@StringRes int resourceId) {
+    final void withHint(@StringRes int resourceId) {
         clearCached();
         addMatcher(ViewMatchers.withHint(resourceId));
     }
 
-    void isChecked() {
+    final void isChecked() {
         clearCached();
         addMatcher(ViewMatchers.isChecked());
     }
 
-    void isNotChecked() {
+    final void isNotChecked() {
         clearCached();
         addMatcher(ViewMatchers.isNotChecked());
     }
 
-    void hasContentDescription() {
+    final void hasContentDescription() {
         clearCached();
         addMatcher(ViewMatchers.hasContentDescription());
     }
 
-    void hasDescendant(org.hamcrest.Matcher<View> descendantMatcher) {
+    final void hasDescendant(org.hamcrest.Matcher<View> descendantMatcher) {
         clearCached();
         addMatcher(ViewMatchers.hasDescendant(descendantMatcher));
     }
 
-    void hasDescendant(Matcher descendantMatcher) {
+    final void hasDescendant(Matcher descendantMatcher) {
         hasDescendant((org.hamcrest.Matcher<View>) descendantMatcher);
     }
 
-    void isClickable() {
+    final void isClickable() {
         clearCached();
         addMatcher(ViewMatchers.isClickable());
     }
 
-    void isDescendantOfA(org.hamcrest.Matcher<View> ancestorMatcher) {
+    final void isDescendantOfA(org.hamcrest.Matcher<View> ancestorMatcher) {
         clearCached();
         addMatcher(ViewMatchers.isDescendantOfA(ancestorMatcher));
     }
 
-    void isDescendantOfA(Matcher ancestorMatcher) {
+    final void isDescendantOfA(Matcher ancestorMatcher) {
         isDescendantOfA((org.hamcrest.Matcher<View>) ancestorMatcher);
     }
 
-    void withEffectiveVisibility(ViewMatchers.Visibility visibility) {
+    final void withEffectiveVisibility(ViewMatchers.Visibility visibility) {
         clearCached();
         addMatcher(ViewMatchers.withEffectiveVisibility(visibility));
     }
 
-    void withParent(org.hamcrest.Matcher<View> parentMatcher) {
+    final void withParent(org.hamcrest.Matcher<View> parentMatcher) {
         clearCached();
         addMatcher(ViewMatchers.withParent(parentMatcher));
     }
 
-    void withParent(Matcher parentMatcher) {
+    final void withParent(Matcher parentMatcher) {
         withParent((org.hamcrest.Matcher<View>) parentMatcher);
     }
 
-    void withChild(org.hamcrest.Matcher<View> childMatcher) {
+    final void withChild(org.hamcrest.Matcher<View> childMatcher) {
         clearCached();
         addMatcher(ViewMatchers.withChild(childMatcher));
     }
 
-    void withChild(Matcher childMatcher) {
+    final void withChild(Matcher childMatcher) {
         withChild((org.hamcrest.Matcher<View>) childMatcher);
     }
 
-    void isRoot() {
+    final void isRoot() {
         clearCached();
         addMatcher(ViewMatchers.isRoot());
     }
 
-    void supportsInputMethods() {
+    final void supportsInputMethods() {
         clearCached();
         addMatcher(ViewMatchers.supportsInputMethods());
     }
 
-    void hasImeAction(int imeAction) {
+    final void hasImeAction(int imeAction) {
         clearCached();
         addMatcher(ViewMatchers.hasImeAction(imeAction));
     }
 
-    void hasImeAction(org.hamcrest.Matcher<Integer> imeActionMatcher) {
+    final void hasImeAction(org.hamcrest.Matcher<Integer> imeActionMatcher) {
         clearCached();
         addMatcher(ViewMatchers.hasImeAction(imeActionMatcher));
     }
 
-    void hasLinks() {
+    final void hasLinks() {
         clearCached();
         addMatcher(ViewMatchers.hasLinks());
     }
 
-    void withSpinnerText(@StringRes int resourceId) {
+    final void withSpinnerText(@StringRes int resourceId) {
         clearCached();
         addMatcher(ViewMatchers.withSpinnerText(resourceId));
     }
 
-    void withSpinnerText(org.hamcrest.Matcher<String> stringMatcher) {
+    final void withSpinnerText(org.hamcrest.Matcher<String> stringMatcher) {
         clearCached();
         addMatcher(ViewMatchers.withSpinnerText(stringMatcher));
     }
 
-    void withSpinnerText(String text) {
+    final void withSpinnerText(String text) {
         clearCached();
         addMatcher(ViewMatchers.withSpinnerText(text));
     }
 
-    void isJavascriptEnabled() {
+    final void isJavascriptEnabled() {
         clearCached();
         addMatcher(ViewMatchers.isJavascriptEnabled());
     }
 
-    void hasErrorText(org.hamcrest.Matcher<String> stringMatcher) {
+    final void hasErrorText(org.hamcrest.Matcher<String> stringMatcher) {
         clearCached();
         addMatcher(ViewMatchers.hasErrorText(stringMatcher));
     }
 
-    void hasErrorText(String expectedError) {
+    final void hasErrorText(String expectedError) {
         clearCached();
         addMatcher(ViewMatchers.hasErrorText(expectedError));
     }
 
-    void withInputType(int inputType) {
+    final void withInputType(int inputType) {
         clearCached();
         addMatcher(ViewMatchers.withInputType(inputType));
     }
 
-    void matching(org.hamcrest.Matcher<View> matcher) {
+    final void matching(org.hamcrest.Matcher<View> matcher) {
         clearCached();
         addMatcher(matcher);
     }
 
-    void matching(Matcher matcher) {
+    final void matching(Matcher matcher) {
         matching((org.hamcrest.Matcher<View>) matcher);
     }
 
+    @Deprecated
     public final class Start {
 
         private Start() {
         }
 
-        public final class Matcher extends NotCompletable<OrAnd.Matcher>
-                implements Not<Negated.Start.Matcher> {
+        @Deprecated
+        public final class Matcher extends NotCompletable<OrAnd.Matcher> {
 
             Matcher() {
                 super(Cortado.this);
             }
 
             @Override
-            OrAnd.Matcher returned() {
+            final OrAnd.Matcher returned() {
                 return new OrAnd().new Matcher();
             }
 
             @VisibleForTesting
-            Cortado getCortado() {
+            final Cortado getCortado() {
                 return Cortado.this;
-            }
-
-            @Override
-            public Negated.Start.Matcher not() {
-                return new Negated().new Start().new Matcher();
             }
         }
 
-        public final class ViewInteraction extends NotCompletable<OrAnd.ViewInteraction>
-                implements Not<Negated.Start.ViewInteraction> {
+        @Deprecated
+        public final class ViewInteraction extends NotCompletable<OrAnd.ViewInteraction> {
 
             ViewInteraction() {
                 super(Cortado.this);
             }
 
             @Override
-            OrAnd.ViewInteraction returned() {
+            final OrAnd.ViewInteraction returned() {
                 return new OrAnd().new ViewInteraction();
             }
 
             @VisibleForTesting
-            Cortado getCortado() {
+            final Cortado getCortado() {
                 return Cortado.this;
-            }
-
-            @Override
-            public Negated.Start.ViewInteraction not() {
-                return new Negated().new Start().new ViewInteraction();
             }
         }
     }
 
+    @Deprecated
     public final class Unfinished {
 
         private Unfinished() {
         }
 
+        @Deprecated
         public final class Or {
 
             private Or() {
             }
 
-            public final class Matcher extends NotCompletable<Cortado.Or.Matcher>
-                    implements Not<Negated.Unfinished.Or.Matcher> {
+            @Deprecated
+            public final class Matcher extends NotCompletable<Cortado.Or.Matcher> {
 
                 private Matcher() {
                     super(Cortado.this);
                 }
 
                 @Override
-                Cortado.Or.Matcher returned() {
+                final Cortado.Or.Matcher returned() {
                     return new Cortado.Or().new Matcher();
                 }
 
                 @VisibleForTesting
-                Cortado getCortado() {
+                final Cortado getCortado() {
                     return Cortado.this;
-                }
-
-                @Override
-                public Negated.Unfinished.Or.Matcher not() {
-                    return new Negated().new Unfinished().new Or().new Matcher();
                 }
             }
 
-            public final class ViewInteraction extends NotCompletable<Cortado.Or.ViewInteraction>
-                    implements Not<Negated.Unfinished.Or.ViewInteraction> {
+            @Deprecated
+            public final class ViewInteraction
+                    extends NotCompletable<Cortado.Or.ViewInteraction> {
 
                 private ViewInteraction() {
                     super(Cortado.this);
                 }
 
                 @Override
-                Cortado.Or.ViewInteraction returned() {
+                final Cortado.Or.ViewInteraction returned() {
                     return new Cortado.Or().new ViewInteraction();
                 }
 
                 @VisibleForTesting
-                Cortado getCortado() {
+                final Cortado getCortado() {
                     return Cortado.this;
-                }
-
-                @Override
-                public Negated.Unfinished.Or.ViewInteraction not() {
-                    return new Negated().new Unfinished().new Or().new ViewInteraction();
                 }
             }
         }
 
+        @Deprecated
         public final class And {
 
             private And() {
             }
 
-            public final class Matcher extends NotCompletable<Cortado.And.Matcher>
-                    implements Not<Negated.Unfinished.And.Matcher> {
+            @Deprecated
+            public final class Matcher extends NotCompletable<Cortado.And.Matcher> {
 
                 private Matcher() {
                     super(Cortado.this);
                 }
 
                 @Override
-                Cortado.And.Matcher returned() {
+                final Cortado.And.Matcher returned() {
                     return new Cortado.And().new Matcher();
                 }
 
                 @VisibleForTesting
-                Cortado getCortado() {
+                final Cortado getCortado() {
                     return Cortado.this;
-                }
-
-                @Override
-                public Negated.Unfinished.And.Matcher not() {
-                    return new Negated().new Unfinished().new And().new Matcher();
                 }
             }
 
-            public final class ViewInteraction extends NotCompletable<Cortado.And.ViewInteraction>
-                    implements Not<Negated.Unfinished.And.ViewInteraction> {
+            @Deprecated
+            public final class ViewInteraction
+                    extends NotCompletable<Cortado.And.ViewInteraction> {
 
                 private ViewInteraction() {
                     super(Cortado.this);
                 }
 
                 @Override
-                Cortado.And.ViewInteraction returned() {
+                final Cortado.And.ViewInteraction returned() {
                     return new Cortado.And().new ViewInteraction();
                 }
 
                 @VisibleForTesting
-                Cortado getCortado() {
+                final Cortado getCortado() {
                     return Cortado.this;
-                }
-
-                @Override
-                public Negated.Unfinished.And.ViewInteraction not() {
-                    return new Negated().new Unfinished().new And().new ViewInteraction();
                 }
             }
         }
@@ -527,240 +507,109 @@ public final class Cortado {
         OrAnd() {
         }
 
-        public final class Matcher extends cortado.Matcher
-                implements cortado.Or<Unfinished.Or.Matcher>, cortado.And<Unfinished.And.Matcher> {
+        public final class Matcher extends cortado.Matcher implements
+                cortado.Or<cortado.Unfinished.Or.Matcher>,
+                cortado.And<cortado.Unfinished.And.Matcher> {
 
             Matcher() {
                 super(Cortado.this);
             }
 
             @Override
-            public Unfinished.Or.Matcher or() {
+            public final cortado.Unfinished.Or.Matcher or() {
                 Cortado.this.or();
-                return new Unfinished().new Or().new Matcher();
+                return new cortado.Unfinished(Cortado.this).new Or().new Matcher();
             }
 
             @Override
-            public Unfinished.And.Matcher and() {
+            public final cortado.Unfinished.And.Matcher and() {
                 Cortado.this.and();
-                return new Unfinished().new And().new Matcher();
+                return new cortado.Unfinished(Cortado.this).new And().new Matcher();
             }
         }
 
-        public final class ViewInteraction extends cortado.ViewInteraction
-                implements cortado.Or<Unfinished.Or.ViewInteraction>, cortado.And<Unfinished.And.ViewInteraction> {
+        public final class ViewInteraction extends cortado.ViewInteraction implements
+                cortado.Or<cortado.Unfinished.Or.ViewInteraction>,
+                cortado.And<cortado.Unfinished.And.ViewInteraction> {
 
             ViewInteraction() {
                 super(Cortado.this);
             }
 
             @Override
-            public Unfinished.Or.ViewInteraction or() {
+            public final cortado.Unfinished.Or.ViewInteraction or() {
                 Cortado.this.or();
-                return new Unfinished().new Or().new ViewInteraction();
+                return new cortado.Unfinished(Cortado.this).new Or().new ViewInteraction();
             }
 
             @Override
-            public Unfinished.And.ViewInteraction and() {
+            public final cortado.Unfinished.And.ViewInteraction and() {
                 Cortado.this.and();
-                return new Unfinished().new And().new ViewInteraction();
+                return new cortado.Unfinished(Cortado.this).new And().new ViewInteraction();
             }
         }
     }
 
     public final class Or {
 
-        private Or() {
+        Or() {
         }
 
         public final class Matcher extends cortado.Matcher
-                implements cortado.Or<Unfinished.Or.Matcher> {
+                implements cortado.Or<cortado.Unfinished.Or.Matcher> {
 
-            private Matcher() {
+            Matcher() {
                 super(Cortado.this);
             }
 
             @Override
-            public Unfinished.Or.Matcher or() {
-                return new Unfinished().new Or().new Matcher();
+            public final cortado.Unfinished.Or.Matcher or() {
+                return new cortado.Unfinished(Cortado.this).new Or().new Matcher();
             }
         }
 
         public final class ViewInteraction extends cortado.ViewInteraction
-                implements cortado.Or<Unfinished.Or.ViewInteraction> {
+                implements cortado.Or<cortado.Unfinished.Or.ViewInteraction> {
 
-            private ViewInteraction() {
+            ViewInteraction() {
                 super(Cortado.this);
             }
 
             @Override
-            public Unfinished.Or.ViewInteraction or() {
-                return new Unfinished().new Or().new ViewInteraction();
+            public final cortado.Unfinished.Or.ViewInteraction or() {
+                return new cortado.Unfinished(Cortado.this).new Or().new ViewInteraction();
             }
         }
     }
 
     public final class And {
 
-        private And() {
+        And() {
         }
 
         public final class Matcher extends cortado.Matcher
-                implements cortado.And<Unfinished.And.Matcher> {
+                implements cortado.And<cortado.Unfinished.And.Matcher> {
 
-            private Matcher() {
+            Matcher() {
                 super(Cortado.this);
             }
 
             @Override
-            public Unfinished.And.Matcher and() {
-                return new Unfinished().new And().new Matcher();
+            public final cortado.Unfinished.And.Matcher and() {
+                return new cortado.Unfinished(Cortado.this).new And().new Matcher();
             }
         }
 
         public final class ViewInteraction extends cortado.ViewInteraction
-                implements cortado.And<Unfinished.And.ViewInteraction> {
+                implements cortado.And<cortado.Unfinished.And.ViewInteraction> {
 
-            private ViewInteraction() {
+            ViewInteraction() {
                 super(Cortado.this);
             }
 
             @Override
-            public Unfinished.And.ViewInteraction and() {
-                return new Unfinished().new And().new ViewInteraction();
-            }
-        }
-    }
-
-    public final class Negated {
-
-        private Negated() {
-            negateNextMatcher();
-        }
-
-        public final class Start {
-
-            private Start() {
-            }
-
-            public final class Matcher extends NotCompletable<OrAnd.Matcher> {
-
-                Matcher() {
-                    super(Cortado.this);
-                }
-
-                @Override
-                OrAnd.Matcher returned() {
-                    return new OrAnd().new Matcher();
-                }
-
-                @VisibleForTesting
-                Cortado getCortado() {
-                    return Cortado.this;
-                }
-            }
-
-            public final class ViewInteraction extends NotCompletable<OrAnd.ViewInteraction> {
-
-                ViewInteraction() {
-                    super(Cortado.this);
-                }
-
-                @Override
-                OrAnd.ViewInteraction returned() {
-                    return new OrAnd().new ViewInteraction();
-                }
-
-                @VisibleForTesting
-                Cortado getCortado() {
-                    return Cortado.this;
-                }
-            }
-        }
-
-        public final class Unfinished {
-
-            private Unfinished() {
-            }
-
-            public final class Or {
-
-                private Or() {
-                }
-
-                public final class Matcher extends NotCompletable<Cortado.Or.Matcher> {
-
-                    private Matcher() {
-                        super(Cortado.this);
-                    }
-
-                    @Override
-                    Cortado.Or.Matcher returned() {
-                        return new Cortado.Or().new Matcher();
-                    }
-
-                    @VisibleForTesting
-                    Cortado getCortado() {
-                        return Cortado.this;
-                    }
-                }
-
-                public final class ViewInteraction extends NotCompletable<Cortado.Or.ViewInteraction> {
-
-                    private ViewInteraction() {
-                        super(Cortado.this);
-                    }
-
-                    @Override
-                    Cortado.Or.ViewInteraction returned() {
-                        return new Cortado.Or().new ViewInteraction();
-                    }
-
-                    @VisibleForTesting
-                    Cortado getCortado() {
-                        return Cortado.this;
-                    }
-                }
-            }
-
-            public final class And {
-
-                private And() {
-                }
-
-                public final class Matcher extends NotCompletable<Cortado.And.Matcher> {
-
-                    private Matcher() {
-                        super(Cortado.this);
-                    }
-
-                    @Override
-                    Cortado.And.Matcher returned() {
-                        return new Cortado.And().new Matcher();
-                    }
-
-                    @VisibleForTesting
-                    Cortado getCortado() {
-                        return Cortado.this;
-                    }
-                }
-
-                public final class ViewInteraction extends NotCompletable<Cortado.And.ViewInteraction> {
-
-                    private ViewInteraction() {
-                        super(Cortado.this);
-                    }
-
-                    @Override
-                    Cortado.And.ViewInteraction returned() {
-                        return new Cortado.And().new ViewInteraction();
-                    }
-
-                    @VisibleForTesting
-                    Cortado getCortado() {
-                        return Cortado.this;
-                    }
-                }
+            public final cortado.Unfinished.And.ViewInteraction and() {
+                return new cortado.Unfinished(Cortado.this).new And().new ViewInteraction();
             }
         }
     }

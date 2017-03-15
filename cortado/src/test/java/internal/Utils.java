@@ -1,6 +1,4 @@
-package cortado;
-
-import cortado.internal.RecordingDescription;
+package internal;
 
 import static com.google.common.truth.Truth.assertWithMessage;
 
