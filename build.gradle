@@ -28,8 +28,8 @@ ext {
             licenseDesc: "The Apache Software License, Version 2.0"
     ]
 
-    bintrayUser = BINTRAY_USERNAME
-    bintrayKey = BINTRAY_API_KEY
+    bintrayUser = hasProperty("BINTRAY_USERNAME") ? BINTRAY_USERNAME : ""
+    bintrayKey = hasProperty("BINTRAY_API_KEY") ? BINTRAY_API_KEY : ""
     dryRun = 'false'
     isUploading = project.getGradle().startParameter.taskNames.any { it.contains('bintrayUpload') }
 
