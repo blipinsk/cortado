@@ -43,15 +43,15 @@ public final class Cortado {
     @Nullable
     private org.hamcrest.Matcher<? super View> cached;
 
-    private Cortado() {
-    }
-
     public static cortado.Start.ViewInteraction onView() {
         return new cortado.Start(new Cortado()).new ViewInteraction();
     }
 
     public static cortado.Start.Matcher view() {
         return new cortado.Start(new Cortado()).new Matcher();
+    }
+
+    private Cortado() {
     }
 
     private synchronized void clearCached() {

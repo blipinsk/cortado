@@ -3,8 +3,8 @@ package cortado;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.view.View;
 
-import org.hamcrest.*;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -197,91 +197,188 @@ public class Cortado_Tests {
 
     // setting linkers
     @Test
-    public void view_and_setsProperLinker() {
-        Cortado.OrAnd.Matcher beforeAnd = Cortado.view().withText("test");
+    public void view_hasProperLinker_initially() {
+        //given
+        Start.Matcher view = Cortado.view();
+
+        //when
+        Cortado.OrAnd.Matcher beforeAnd = view.withText("test");
+
+        //then
         assertThat(beforeAnd.getCortado().linker).isEqualTo(Linker.REGULAR);
+    }
+
+    @Test
+    public void view_and_setsProperLinker() {
+        //given
+        Cortado.OrAnd.Matcher beforeAnd = Cortado.view().withText("test");
+
+        //when
         Unfinished.And.Matcher afterAnd = beforeAnd.and();
+
+        //then
         assertThat(afterAnd.getCortado().linker).isEqualTo(Linker.AND);
     }
 
     @Test
     public void view_or_setsProperLinker() {
+        //given
         Cortado.OrAnd.Matcher beforeOr = Cortado.view().withText("test");
-        assertThat(beforeOr.getCortado().linker).isEqualTo(Linker.REGULAR);
+
+        //when
         Unfinished.Or.Matcher afterOr = beforeOr.or();
+
+        //then
         assertThat(afterOr.getCortado().linker).isEqualTo(Linker.OR);
     }
 
     @Test
-    public void onView_and_setsProperLinker() {
-        Cortado.OrAnd.ViewInteraction beforeAnd = Cortado.onView().withText("test");
+    public void onView_hasProperLinker_initially() {
+        //given
+        Start.ViewInteraction viewInteraction = Cortado.onView();
+
+        //when
+        Cortado.OrAnd.ViewInteraction beforeAnd = viewInteraction.withText("test");
+
+        //then
         assertThat(beforeAnd.getCortado().linker).isEqualTo(Linker.REGULAR);
+    }
+
+    @Test
+    public void onView_and_setsProperLinker() {
+        //given
+        Cortado.OrAnd.ViewInteraction beforeAnd = Cortado.onView().withText("test");
+
+        //when
         Unfinished.And.ViewInteraction afterAnd = beforeAnd.and();
+
+        //then
         assertThat(afterAnd.getCortado().linker).isEqualTo(Linker.AND);
     }
 
     @Test
     public void onView_or_setsProperLinker() {
+        //given
         Cortado.OrAnd.ViewInteraction beforeOr = Cortado.onView().withText("test");
-        assertThat(beforeOr.getCortado().linker).isEqualTo(Linker.REGULAR);
+
+        //when
         Unfinished.Or.ViewInteraction afterOr = beforeOr.or();
+
+        //then
         assertThat(afterOr.getCortado().linker).isEqualTo(Linker.OR);
     }
 
     // negated constructors
     @Test
-    public void negated_start_matcher_constructor_setsCortadoFlag() {
+    public void view_hasProperNegatedFlag_initially(){
+        //given
+        //when
         Start.Matcher view = Cortado.view();
+
+        //then
         assertThat(view.getCortado().negateNextMatcher).isFalse();
+    }
+
+    @Test
+    public void view_not_setsNegatedFlag() {
+        //given
+        Start.Matcher view = Cortado.view();
+
+        //when
         Negated.Start.Matcher not = view.not();
+
+        //then
         assertThat(not.getCortado().negateNextMatcher).isTrue();
     }
 
     @Test
-    public void negated_start_viewInteraction_constructor_setsCortadoFlag() {
+    public void view_withCondition_hasProperNegatedFlag() {
+        //given
+        //when
+        Cortado.OrAnd.Matcher matcher = Cortado.view().withText("test");
+
+        //then
+        assertThat(matcher.getCortado().negateNextMatcher).isFalse();
+    }
+
+    @Test
+    public void view_withCondition_or_not_setsNegatedFlag() {
+        //given
+        Cortado.OrAnd.Matcher matcher = Cortado.view().withText("test");
+
+        //when
+        Negated.Unfinished.Or.Matcher not = matcher.or().not();
+
+        //then
+        assertThat(not.getCortado().negateNextMatcher).isTrue();
+    }
+
+    @Test
+    public void view_withCondition_and_not_setsNegatedFlag() {
+        //given
+        Cortado.OrAnd.Matcher matcher = Cortado.view().withText("test");
+
+        //when
+        Negated.Unfinished.And.Matcher not = matcher.and().not();
+
+        //then
+        assertThat(not.getCortado().negateNextMatcher).isTrue();
+    }
+
+    @Test
+    public void onView_hasProperNegatedFlag_initially(){
+        //given
+        //when
         Start.ViewInteraction viewInteraction = Cortado.onView();
+
+        //then
         assertThat(viewInteraction.getCortado().negateNextMatcher).isFalse();
+    }
+
+    @Test
+    public void onView_not_setsNegatedFlag() {
+        //given
+        Start.ViewInteraction viewInteraction = Cortado.onView();
+
+        //when
         Negated.Start.ViewInteraction not = viewInteraction.not();
+
+        //then
         assertThat(not.getCortado().negateNextMatcher).isTrue();
     }
 
     @Test
-    public void negated_unfinished_or_matcher_constructor_setsCortadoFlag() {
-        Start.Matcher view = Cortado.view();
-        assertThat(view.getCortado().negateNextMatcher).isFalse();
-        Cortado.OrAnd.Matcher orAndMatcher = view.withText("test");
-        assertThat(orAndMatcher.getCortado().negateNextMatcher).isFalse();
-        Negated.Unfinished.Or.Matcher not = orAndMatcher.or().not();
-        assertThat(not.getCortado().negateNextMatcher).isTrue();
-    }
+    public void onView_withCondition_hasProperNegatedFlag() {
+        //given
+        //when
+        Cortado.OrAnd.ViewInteraction viewInteraction = Cortado.onView().withText("test");
 
-    @Test
-    public void negated_unfinished_or_viewInteraction_constructor_setsCortadoFlag() {
-        Start.ViewInteraction viewInteraction = Cortado.onView();
+        //then
         assertThat(viewInteraction.getCortado().negateNextMatcher).isFalse();
-        Cortado.OrAnd.ViewInteraction orAndViewInteraction = viewInteraction.withText("test");
-        assertThat(orAndViewInteraction.getCortado().negateNextMatcher).isFalse();
-        Negated.Unfinished.Or.ViewInteraction not = orAndViewInteraction.or().not();
+    }
+
+
+    @Test
+    public void onView_withCondition_or_not_setsNegatedFlag() {
+        //given
+        Cortado.OrAnd.ViewInteraction viewInteraction = Cortado.onView().withText("test");
+
+        //when
+        Negated.Unfinished.Or.ViewInteraction not = viewInteraction.or().not();
+
+        //then
         assertThat(not.getCortado().negateNextMatcher).isTrue();
     }
 
     @Test
-    public void negated_unfinished_and_matcher_constructor_setsCortadoFlag() {
-        Start.Matcher view = Cortado.view();
-        assertThat(view.getCortado().negateNextMatcher).isFalse();
-        Cortado.OrAnd.Matcher orAndMatcher = view.withText("test");
-        assertThat(orAndMatcher.getCortado().negateNextMatcher).isFalse();
-        Negated.Unfinished.And.Matcher not = orAndMatcher.and().not();
-        assertThat(not.getCortado().negateNextMatcher).isTrue();
-    }
+    public void onView_withCondition_and_not_setsNegatedFlag() {
+        //given
+        Cortado.OrAnd.ViewInteraction viewInteraction = Cortado.onView().withText("test");
 
-    @Test
-    public void negated_unfinished_and_viewInteraction_constructor_setsCortadoFlag() {
-        Start.ViewInteraction viewInteraction = Cortado.onView();
-        assertThat(viewInteraction.getCortado().negateNextMatcher).isFalse();
-        Cortado.OrAnd.ViewInteraction orAndViewInteraction = viewInteraction.withText("test");
-        assertThat(orAndViewInteraction.getCortado().negateNextMatcher).isFalse();
-        Negated.Unfinished.And.ViewInteraction not = orAndViewInteraction.and().not();
+        //when
+        Negated.Unfinished.And.ViewInteraction not = viewInteraction.and().not();
+
+        //then
         assertThat(not.getCortado().negateNextMatcher).isTrue();
     }
 

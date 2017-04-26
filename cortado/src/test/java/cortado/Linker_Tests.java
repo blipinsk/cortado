@@ -30,34 +30,57 @@ public class Linker_Tests {
     @Test(expected = IllegalArgumentException.class)
     @Order(1)
     public void regular_throws_IfMoreThanOne() {
+        //given
         List<Matcher<? super View>> matchers = new ArrayList<>();
         matchers.add(new SimpleWrappingViewMatcher<>(null));
         matchers.add(new SimpleWrappingViewMatcher<>(null));
+
+        //when
         REGULAR.link(matchers);
+
+        //then -> throws exception handled by `expected`
     }
 
     @Test
     @Order(2)
     public void regular_returnsFirst() {
+        //given
         List<Matcher<? super View>> matchers = new ArrayList<>();
         Matcher<View> matcher = new SimpleWrappingViewMatcher<>(null);
         matchers.add(matcher);
-        assertThat(REGULAR.link(matchers)).isEqualTo(matcher);
+
+        //when
+        Matcher<? super View> link = REGULAR.link(matchers);
+
+        //then
+        assertThat(link).isEqualTo(matcher);
     }
 
     @Test
-    public void and_returns_instanceOf_AllOf(){
+    public void and_returns_instanceOf_AllOf() {
+        //given
         List<Matcher<? super View>> matchers = new ArrayList<>();
         Matcher<View> matcher = new SimpleWrappingViewMatcher<>(null);
         matchers.add(matcher);
-        assertThat(AND.link(matchers)).isInstanceOf(AllOf.class);
+
+        //when
+        Matcher<? super View> link = AND.link(matchers);
+
+        //then
+        assertThat(link).isInstanceOf(AllOf.class);
     }
 
     @Test
-    public void or_returns_instanceOf_AnyOf(){
+    public void or_returns_instanceOf_AnyOf() {
+        //given
         List<Matcher<? super View>> matchers = new ArrayList<>();
         Matcher<View> matcher = new SimpleWrappingViewMatcher<>(null);
         matchers.add(matcher);
-        assertThat(OR.link(matchers)).isInstanceOf(AnyOf.class);
+
+        //when
+        Matcher<? super View> link = OR.link(matchers);
+
+        //then
+        assertThat(link).isInstanceOf(AnyOf.class);
     }
 }
