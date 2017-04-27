@@ -2,6 +2,11 @@ package cortado;
 
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
@@ -270,7 +275,7 @@ public class Cortado_Tests {
 
     // negated constructors
     @Test
-    public void view_hasProperNegatedFlag_initially(){
+    public void view_hasProperNegatedFlag_initially() {
         //given
         //when
         Start.Matcher view = Cortado.view();
@@ -326,7 +331,7 @@ public class Cortado_Tests {
     }
 
     @Test
-    public void onView_hasProperNegatedFlag_initially(){
+    public void onView_hasProperNegatedFlag_initially() {
         //given
         //when
         Start.ViewInteraction viewInteraction = Cortado.onView();
@@ -433,4 +438,174 @@ public class Cortado_Tests {
         Utils.assertThat(addedMatcher).isEqualTo(negatedViewMatcher);
     }
 
+    // assignableFromClass
+    @Test
+    public void view_returnsProperMatcher() {
+        //given
+        final Cortado.OrAnd.Matcher matcher = Cortado.view().withText("test");
+        final Matcher<? super View> espressoMatcher = matcher.getCortado().matchers.get(0);
+
+        //when
+
+        //then
+        Utils.assertThat(matcher).isEqualTo(espressoMatcher);
+    }
+
+    @Test
+    public void textView_returnsProperMatcher() {
+        //given
+        final Cortado.OrAnd.Matcher matcher = Cortado.textView().withText("test");
+        final Matcher<View> expectedEspressoMatcher = Matchers.allOf(
+                ViewMatchers.isAssignableFrom(TextView.class),
+                matcher.getCortado().matchers.get(0));
+
+        //when
+
+        //then
+        Utils.assertThat(matcher).isEqualTo(expectedEspressoMatcher);
+    }
+
+    @Test
+    public void editText_returnsProperMatcher() {
+        //given
+        final Cortado.OrAnd.Matcher matcher = Cortado.editText().withText("test");
+        final Matcher<View> expectedEspressoMatcher = Matchers.allOf(
+                ViewMatchers.isAssignableFrom(EditText.class),
+                matcher.getCortado().matchers.get(0));
+
+        //when
+
+        //then
+        Utils.assertThat(matcher).isEqualTo(expectedEspressoMatcher);
+    }
+
+    @Test
+    public void button_returnsProperMatcher() {
+        //given
+        final Cortado.OrAnd.Matcher matcher = Cortado.button().withText("test");
+        final Matcher<View> expectedEspressoMatcher = Matchers.allOf(
+                ViewMatchers.isAssignableFrom(Button.class),
+                matcher.getCortado().matchers.get(0));
+
+        //when
+
+        //then
+        Utils.assertThat(matcher).isEqualTo(expectedEspressoMatcher);
+    }
+
+    @Test
+    public void imageView_returnsProperMatcher() {
+        //given
+        final Cortado.OrAnd.Matcher matcher = Cortado.imageView().withText("test");
+        final Matcher<View> expectedEspressoMatcher = Matchers.allOf(
+                ViewMatchers.isAssignableFrom(ImageView.class),
+                matcher.getCortado().matchers.get(0));
+
+        //when
+
+        //then
+        Utils.assertThat(matcher).isEqualTo(expectedEspressoMatcher);
+    }
+
+    @Test
+    public void imageButton_returnsProperMatcher() {
+        //given
+        final Cortado.OrAnd.Matcher matcher = Cortado.imageButton().withText("test");
+        final Matcher<View> expectedEspressoMatcher = Matchers.allOf(
+                ViewMatchers.isAssignableFrom(ImageButton.class),
+                matcher.getCortado().matchers.get(0));
+
+        //when
+
+        //then
+        Utils.assertThat(matcher).isEqualTo(expectedEspressoMatcher);
+    }
+
+    @Test
+    public void onView_returnsProperViewInteraction() {
+        //given
+        final Cortado.OrAnd.ViewInteraction viewInteraction = Cortado.onView().withText("test");
+        final Matcher<? super View> espressoMatcher = viewInteraction.getCortado().matchers.get(0);
+
+        //when
+        final Matcher<View> rawMatcher = viewInteraction.getCortado().get();
+
+        //then
+        Utils.assertThat(rawMatcher).isEqualTo(espressoMatcher);
+    }
+
+    @Test
+    public void onTextView_returnsProperViewInteraction() {
+        //given
+        final Cortado.OrAnd.ViewInteraction viewInteraction = Cortado.onTextView().withText("test");
+        final Matcher<View> expectedEspressoMatcher = Matchers.allOf(
+                ViewMatchers.isAssignableFrom(TextView.class),
+                viewInteraction.getCortado().matchers.get(0));
+
+        //when
+        final Matcher<View> rawMatcher = viewInteraction.getCortado().get();
+
+        //then
+        Utils.assertThat(rawMatcher).isEqualTo(expectedEspressoMatcher);
+    }
+
+    @Test
+    public void onEditText_returnsProperViewInteraction() {
+        //given
+        final Cortado.OrAnd.ViewInteraction viewInteraction = Cortado.onEditText().withText("test");
+        final Matcher<View> expectedEspressoMatcher = Matchers.allOf(
+                ViewMatchers.isAssignableFrom(EditText.class),
+                viewInteraction.getCortado().matchers.get(0));
+
+        //when
+        final Matcher<View> rawMatcher = viewInteraction.getCortado().get();
+
+        //then
+        Utils.assertThat(rawMatcher).isEqualTo(expectedEspressoMatcher);
+    }
+
+    @Test
+    public void onButton_returnsProperViewInteraction() {
+        //given
+        final Cortado.OrAnd.ViewInteraction viewInteraction = Cortado.onButton().withText("test");
+        final Matcher<View> expectedEspressoMatcher = Matchers.allOf(
+                ViewMatchers.isAssignableFrom(Button.class),
+                viewInteraction.getCortado().matchers.get(0));
+
+        //when
+        final Matcher<View> rawMatcher = viewInteraction.getCortado().get();
+
+        //then
+        Utils.assertThat(rawMatcher).isEqualTo(expectedEspressoMatcher);
+    }
+
+    @Test
+    public void onImageView_returnsProperViewInteraction() {
+        //given
+        final Cortado.OrAnd.ViewInteraction viewInteraction = Cortado.onImageView().withText("test");
+        final Matcher<View> expectedEspressoMatcher = Matchers.allOf(
+                ViewMatchers.isAssignableFrom(ImageView.class),
+                viewInteraction.getCortado().matchers.get(0));
+
+        //when
+        final Matcher<View> rawMatcher = viewInteraction.getCortado().get();
+
+        //then
+        Utils.assertThat(rawMatcher).isEqualTo(expectedEspressoMatcher);
+    }
+
+    @Test
+    public void onImageButton_returnsProperViewInteraction() {
+        //given
+        final Cortado.OrAnd.ViewInteraction viewInteraction = Cortado.onImageButton().withText("test");
+        final Matcher<View> expectedEspressoMatcher = Matchers.allOf(
+                ViewMatchers.isAssignableFrom(ImageButton.class),
+                viewInteraction.getCortado().matchers.get(0));
+
+        //when
+        final Matcher<View> rawMatcher = viewInteraction.getCortado().get();
+
+        //then
+        Utils.assertThat(rawMatcher).isEqualTo(expectedEspressoMatcher);
+    }
 }
