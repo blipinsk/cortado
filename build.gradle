@@ -5,8 +5,8 @@ ext {
             buildToolsVersion: "25.0.2",
             minSdk           : 8,
             targetSdk        : 25,
-            versionCode      : 3,
-            versionName      : "1.1.0"
+            versionCode      : 4,
+            versionName      : "1.2.0"
     ]
 
     libraries = [
@@ -32,7 +32,6 @@ ext {
     bintrayKey = hasProperty("BINTRAY_API_KEY") ? BINTRAY_API_KEY : ""
     dryRun = 'false'
     isUploading = project.getGradle().startParameter.taskNames.any { it.contains('bintrayUpload') }
-
 }
 
 buildscript {

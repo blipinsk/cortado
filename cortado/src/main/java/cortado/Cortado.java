@@ -26,6 +26,11 @@ import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.hamcrest.Matchers;
 
@@ -40,18 +45,69 @@ public final class Cortado {
     Linker linker = Linker.REGULAR;
     @VisibleForTesting
     boolean negateNextMatcher = false;
+    @VisibleForTesting
+    final Class<? extends View> assignableFromClass;
     @Nullable
     private org.hamcrest.Matcher<? super View> cached;
 
-    private Cortado() {
+    public static cortado.Start.Matcher view() {
+        return view(null);
+    }
+
+    public static cortado.Start.Matcher textView() {
+        return view(TextView.class);
+    }
+
+    public static cortado.Start.Matcher editText() {
+        return view(EditText.class);
+    }
+
+    public static cortado.Start.Matcher button() {
+        return view(Button.class);
+    }
+
+    public static cortado.Start.Matcher imageView() {
+        return view(ImageView.class);
+    }
+
+    public static cortado.Start.Matcher imageButton() {
+        return view(ImageButton.class);
+    }
+
+    private static cortado.Start.Matcher view(@Nullable Class<? extends View> assignableFromClass) {
+        return new cortado.Start(new Cortado(assignableFromClass)).new Matcher();
     }
 
     public static cortado.Start.ViewInteraction onView() {
-        return new cortado.Start(new Cortado()).new ViewInteraction();
+        return onView(null);
     }
 
-    public static cortado.Start.Matcher view() {
-        return new cortado.Start(new Cortado()).new Matcher();
+    public static cortado.Start.ViewInteraction onTextView() {
+        return onView(TextView.class);
+    }
+
+    public static cortado.Start.ViewInteraction onEditText() {
+        return onView(EditText.class);
+    }
+
+    public static cortado.Start.ViewInteraction onButton() {
+        return onView(Button.class);
+    }
+
+    public static cortado.Start.ViewInteraction onImageView() {
+        return onView(ImageView.class);
+    }
+
+    public static cortado.Start.ViewInteraction onImageButton() {
+        return onView(ImageButton.class);
+    }
+
+    private static cortado.Start.ViewInteraction onView(@Nullable Class<? extends View> assignableFromClass) {
+        return new cortado.Start(new Cortado(assignableFromClass)).new ViewInteraction();
+    }
+
+    private Cortado(@Nullable Class<? extends View> assignableFromClass) {
+        this.assignableFromClass = assignableFromClass;
     }
 
     private synchronized void clearCached() {
@@ -75,6 +131,12 @@ public final class Cortado {
     final synchronized org.hamcrest.Matcher<View> get() {
         if (cached == null) {
             cached = linker.link(matchers);
+            if (assignableFromClass != null) {
+                List<org.hamcrest.Matcher<? super View>> assignedMatchers = new ArrayList<>(2);
+                assignedMatchers.add(ViewMatchers.isAssignableFrom(assignableFromClass));
+                assignedMatchers.add(cached);
+                cached = Linker.AND.link(assignedMatchers);
+            }
         }
         //noinspection unchecked
         return (org.hamcrest.Matcher<View>) cached;
