@@ -1,3 +1,13 @@
+Version 1.2.0 *(2017-04-27)*
+----------------------------
+
+View-specific equivalents of `view()` and `onView()` added:
+ * `textView()` and `onTextView()` for `android.widget.TextView`
+ * `editText()` and `onEditText()` for `android.widget.EditText`
+ * `button()` and `onButton()` for `android.widget.Button`
+ * `imageView()` and `onImageView()` for `android.widget.ImageView`
+ * `imageButton()` and `onImageButton()` for `android.widget.ImageButton`
+
 Version 1.1.0 *(2017-03-15)*
 ----------------------------
 
